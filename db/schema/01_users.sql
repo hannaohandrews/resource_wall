@@ -9,6 +9,6 @@ CREATE TABLE users (
   date_of_birth DATE NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  profile_image_url URL NOT NULL
+  profile_image_url VARCHAR(2048) NOT NULL
 );
 
