@@ -46,10 +46,56 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+//CJ updated to render login page or main logged in page
 app.get("/", (req, res) => {
-  res.render("index");
+  // if (!req.session.user_id) {
+  //   res.redirect("/home_login_register");
+  // } else {
+    res.render("home_logged_in");
+  // }
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
+});
+
+
+//CJ Routes to be moved elsewhere(?)
+
+
+// registration page
+app.get("/register", (req, res) => {
+  if (req.session.user_id) {
+    res.redirect("/home_logged_in");
+  } else {
+    res.render("register");
+  }
+});
+
+// direct to resource page
+app.get("/resource/:id", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect("/home_login_register");
+  } else {
+    res.render("resource_url");
+  }
+});
+
+// direct to add new resource page (will need page name checking)
+app.get ("/resource_new", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect("/home_login_register");
+  } else {
+    res.render("resource_new");
+  }
+});
+
+//Direct to logged in home page
+app.get ("/home_logged_in", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect("/home_login_register");
+  } else {
+    res.render("home_logged_in");
+  }
 });

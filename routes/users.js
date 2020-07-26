@@ -21,5 +21,38 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  // CJ profile page route to match input id - need to check if correct
+  router.get("/profile/:id", (req,res) => {
+    db.query(`SELECT * FROM users WHERE id = $1`, [req.params.id])
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  // CJ resource url page
+  router.get("/resource_url/:id", (req,res) => {
+    db.query(`SELECT * FROM resources WHERE id = $1`, [req.params.id])
+      .then(data => {
+        const resource = data.rows;
+        res.json({ resource });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
   return router;
 };
+
+
+
