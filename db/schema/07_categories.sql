@@ -2,6 +2,6 @@ DROP TABLE IF EXISTS categories CASCADE;
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL
+  category_image_url VARCHAR(2048) NOT NULL
 );
 

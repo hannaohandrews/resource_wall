@@ -1,11 +1,11 @@
-INSERT INTO categories (title, description)
-VALUES ('Web Development', 'fence decide while place been let border level law afternoon band rising hat improve snake far managed eventually spell pocket favorite carried each full closely pot threw daily stranger coming was easily from industrial stomach ourselves tower wife modern plates onto look wheel knew independent breathing few greater mission distance have column construction room sort wonderful important unhappy composition consonant waste donkey clear particular eight being');
+INSERT INTO categories (title, category_image_url)
+VALUES ('Web Development', 'https://www.codecademy.com/webpack/e908164f059c81faded2866ab983e950.png');
 
-INSERT INTO categories (title, description)
-VALUES ('Cooking', 'fence decide while place been let border level law afternoon band rising hat improve snake far managed eventually spell pocket favorite carried each full closely pot threw daily stranger coming was easily from industrial stomach ourselves tower wife modern plates onto look wheel knew independent breathing few greater mission distance have column construction room sort wonderful important unhappy composition consonant waste donkey clear particular eight being');
+INSERT INTO categories (title, category_image_url)
+VALUES ('Cooking', 'https://www.lazygourmet.ca/wp-content/uploads/classroom-banner.jpg');
 
-INSERT INTO categories (title, description)
-VALUES ('Early Years', 'fence decide while place been let border level law afternoon band rising hat improve snake far managed eventually spell pocket favorite carried each full closely pot threw daily stranger coming was easily from industrial stomach ourselves tower wife modern plates onto look wheel knew independent breathing few greater mission distance have column construction room sort wonderful important unhappy composition consonant waste donkey clear particular eight being');
+INSERT INTO categories (title, category_image_url)
+VALUES ('Early Years', 'https://www.earlyyearscareers.com/eyc/wp-content/uploads/2017/01/education-919895_1280.jpg');
 
-INSERT INTO categories (title, description)
-VALUES ('Languages', 'fence decide while place been let border level law afternoon band rising hat improve snake far managed eventually spell pocket favorite carried each full closely pot threw daily stranger coming was easily from industrial stomach ourselves tower wife modern plates onto look wheel knew independent breathing few greater mission distance have column construction room sort wonderful important unhappy composition consonant waste donkey clear particular eight being');
+INSERT INTO categories (title, category_image_url)
+VALUES ('Languages', 'https://1635225677.rsc.cdn77.org/images/best-language-learning-apps.jpg');

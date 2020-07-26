@@ -5,22 +5,22 @@ INSERT INTO likes (active, user_id, resource_id)
 VALUES (true, 1, 2);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (true, 6, 5);
+VALUES (true, 3, 5);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (true, 2, 78);
+VALUES (true, 2, 3);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (false, 3, 12);
+VALUES (false, 3, 2);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (false, 5, 3);
+VALUES (false, 3, 3);
 
 INSERT INTO likes (active, user_id, resource_id)
 VALUES (false, 1, 1);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (false, 7, 1);
+VALUES (false, 2, 1);
 
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (false, 4, 3);
+VALUES (false, 2, 3);
