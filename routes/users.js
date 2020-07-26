@@ -50,6 +50,20 @@ module.exports = (db) => {
       });
   });
 
+  // CJ user home page with all resources
+  router.get("/home_logged_in", (req,res) => {
+    db.query(`SELECT * FROM resources JOIN users ON user_id = users(id) JOIN likes ON user_id = users(id) WHERE likes_active = TRUE AND user_id = $1`, [req.params.id])
+      .then(data => {
+        const resource = data.rows;
+        res.json({ resource });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
 
   return router;
 };
