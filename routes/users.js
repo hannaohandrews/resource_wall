@@ -18,8 +18,11 @@ module.exports = (db) => {
       res.redirect("/1_homepage_nl");
     } else {
       const query = {
-        type: `SELECT * FROM resources JOIN users ON user_id = users(id) JOIN likes ON user_id = users(id) WHERE likes_active = TRUE OR user_id = $1`,
-        values: [user_id]
+        type: `SELECT * FROM resources
+        JOIN users ON resources.user_id = users.id
+        JOIN likes ON likes.user_id = users.id
+        WHERE likes.active = TRUE OR resources.user_id = $1`,
+        values: [req.params.id]
       }
       db
       .query(query)
@@ -27,6 +30,7 @@ module.exports = (db) => {
         const templateVars = {
           resource: result.rows
         }
+        console.log(templateVars)
         res.render("4_homepage_logged", templateVars);
       })
       .catch(err => console.log(err))
@@ -66,6 +70,7 @@ module.exports = (db) => {
             const templateVars = {
               resource: result.rows[0]
             }
+            console.log(templateVars);
             res.render("6_profile", templateVars);
           })
           .catch(err => console.log(err))
