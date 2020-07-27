@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
   <!-- Meta Information -->
   <title>Home Page</title>
 
@@ -15,20 +13,19 @@
   <!-- App JS -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
-</head>
+
 
 <!-- Top nav bar (fixed) -->
-<div class='navbar'>
-  <nav class='topRow'>
-    <span>C&H CLASS </span>
-  </nav>
-</div>
+<header>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <title>C&H</title>
+</header>
+
+<body>
+  <%- include('partials/nav') %>
+  <main style="margin: 1em;">
 
 <header class='main-header'>
-  <div>
-    <!-- <img class='main-image' src="/images/profile-hex.png"> -->
-  </div>
-  <br>
   <div>
     <h2>WELCOME! PLEASE LOGIN OR REGISTER!</h2>
   </div>
