@@ -1,5 +1,5 @@
 // load .env data into process.env
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 // Web server config
 const PORT       = process.env.PORT || 8080;
@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
   // if (!req.session.user_id) {
   //   res.redirect("/home_login_register");
   // } else {
-    res.render("4_homepage_logged");
+    res.render("1_homepage_nl");
   // }
 });
 
