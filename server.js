@@ -1,5 +1,5 @@
 // load .env data into process.env
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 // Web server config
 const PORT       = process.env.PORT || 8080;
@@ -53,7 +53,7 @@ app.get("/", (req, res) => {
   // if (!req.session.user_id) {
   //   res.redirect("/home_login_register");
   // } else {
-    res.render("home_logged_in");
+    res.render("1_homepage_nl");
   // }
 });
 
@@ -66,37 +66,37 @@ app.listen(PORT, () => {
 
 
 // registration page
-app.get("/register", (req, res) => {
-  if (req.session.user_id) {
-    res.redirect("/home_logged_in");
-  } else {
-    res.render("register");
-  }
-});
+// app.get("/register", (req, res) => {
+//   if (req.session.user_id) {
+//     res.redirect("/home_logged_in");
+//   } else {
+//     res.render("register");
+//   }
+// });
 
 // direct to resource page
-app.get("/resource/:id", (req, res) => {
-  if (!req.session.user_id) {
-    res.redirect("/home_login_register");
-  } else {
-    res.render("resource_url");
-  }
-});
+// app.get("/resource/:id", (req, res) => {
+//   if (!req.session.user_id) {
+//     res.redirect("/home_login_register");
+//   } else {
+//     res.render("resource_url");
+//   }
+// });
 
 // direct to add new resource page (will need page name checking)
-app.get ("/resource_new", (req, res) => {
-  if (!req.session.user_id) {
-    res.redirect("/home_login_register");
-  } else {
-    res.render("resource_new");
-  }
-});
+// app.get ("/resource_new", (req, res) => {
+//   if (!req.session.user_id) {
+//     res.redirect("/home_login_register");
+//   } else {
+//     res.render("resource_new");
+//   }
+// });
 
 //Direct to logged in home page
-app.get ("/home_logged_in", (req, res) => {
-  if (!req.session.user_id) {
-    res.redirect("/home_login_register");
-  } else {
-    res.render("home_logged_in");
-  }
-});
+// app.get ("/home_logged_in", (req, res) => {
+//   if (!req.session.user_id) {
+//     res.redirect("/home_login_register");
+//   } else {
+//     res.render("home_logged_in");
+//   }
+// });
