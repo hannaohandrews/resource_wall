@@ -31,15 +31,22 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['thisismysuperlongstringtouseforcookiesessions', 'thisisasecondlongstring']
+}));
+// add req.session.user_id = user.id; to app.post login route
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const resourcesRoutes = require("./routes/resources");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
+app.use("/api/resources", resourcesRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
@@ -53,7 +60,7 @@ app.get("/", (req, res) => {
   // if (!req.session.user_id) {
   //   res.redirect("/home_login_register");
   // } else {
-    res.render("home_logged_in");
+    res.render("4_homepage_logged");
   // }
 });
 
@@ -68,35 +75,44 @@ app.listen(PORT, () => {
 // registration page
 app.get("/register", (req, res) => {
   if (req.session.user_id) {
-    res.redirect("/home_logged_in");
+    res.redirect("/4_homepage_logged_in");
   } else {
-    res.render("register");
+    res.render("2_register");
   }
 });
 
 // direct to resource page
 app.get("/resource/:id", (req, res) => {
   if (!req.session.user_id) {
-    res.redirect("/home_login_register");
+    res.redirect("/1_homepage_nl");
   } else {
-    res.render("resource_url");
+    res.render("5_url_desc");
   }
 });
 
 // direct to add new resource page (will need page name checking)
 app.get ("/resource_new", (req, res) => {
   if (!req.session.user_id) {
-    res.redirect("/home_login_register");
+    res.redirect("/1_homepage_nl");
   } else {
-    res.render("resource_new");
+    res.render("7_add_new");
   }
 });
 
 //Direct to logged in home page
 app.get ("/home_logged_in", (req, res) => {
   if (!req.session.user_id) {
-    res.redirect("/home_login_register");
+    res.redirect("/1_homepage_nl");
   } else {
-    res.render("home_logged_in");
+    res.render("4_homepage_logged_in");
+  }
+});
+
+//Direct to categories page
+app.get ("/category/:id", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect("/1_homepage_nl");
+  } else {
+    res.render("8_categories");
   }
 });
