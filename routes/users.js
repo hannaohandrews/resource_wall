@@ -22,7 +22,7 @@ module.exports = (db) => {
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
         WHERE likes.active = TRUE OR resources.user_id = $1`,
-        values: [req.params.id]
+        values: [id]
       }
       db
       .query(query)
@@ -48,7 +48,7 @@ module.exports = (db) => {
   // registration page
   router.get("/register", (req, res) => {
     if (req.session.user_id) {
-      res.redirect("4_homepage_logged_in");
+      res.render("4_homepage_logged");
     } else {
       res.render("2_register");
     }
@@ -78,35 +78,32 @@ module.exports = (db) => {
   });
 
   return router;
+
+  return db.query(`
+  INSERT INTO users (name, email, password)
+  VALUES ($1, $2, $3)
+  RETURNING *`, [user.name, user.email, user.password])
+  .then(res => res.rows[0])
+  .catch('Error adding user');
+  router.post('/', (req, res) => {
+    const user = req.body;
+    user.password = bcrypt.hashSync(user.password, 12);
+    database.addUser(user)
+    .then(user => {
+      if (!user) {
+        res.send({error: "error"});
+        return;
+      }
+      req.session.userId = user.id;
+      res.send("NO");
+    })
+    .catch(e => res.send(e));
+  });
+  router.post('/logout', (req, res) => {
+    req.session.userId = null;
+    res.send({});
+  });
+
+
 };
 
-
-// app.get('/login/:id', (req, res) => {
-//   req.session.user_id = req.params.id;
-//   res.redirect('/');
-// });
-
-
-
-// router.get("/login/:id", (req, res) => {
-//   req.session.user_id = req.params.id;
-//   const id = req.params.id;
-//   if (!req.session.user_id) {
-//     res.redirect("/home_login_register");
-//   } else {
-//     const query = {
-//       type: `SELECT * FROM users WHERE id = $1`,
-//       values: [id]
-//     };
-//       db
-//         .query(query)
-//         .then(result => {
-//           const templateVars = {
-//             resource: result.rows
-//           }
-//           res.render("6_profile", templateVars);
-//         })
-//         .catch(err => console.log(err))
-//   }
-// return router;
-// });
