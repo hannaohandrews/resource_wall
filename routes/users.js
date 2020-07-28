@@ -28,7 +28,8 @@ module.exports = (db) => {
       .query(query)
       .then(result => {
         const templateVars = {
-          resource: result.rows
+          resource: result.rows,
+          user : req.session.user_id
         }
         console.log(templateVars)
         res.render("4_homepage_logged", templateVars);
@@ -37,14 +38,6 @@ module.exports = (db) => {
     }
   });
 
-  // homepage not logged in
-  router.get("/", (req, res) => {
-    if (!req.session.user_id) {
-      res.render("1_homepage_nl");
-    } else {
-      res.render("4_homepage_logged");
-    }
-  });
 
 
   // LOGOUT
@@ -79,19 +72,21 @@ module.exports = (db) => {
     // GET registration page
     router.get("/register", (req, res) => {
       if (req.session.user_id) {
-        res.render("4_homepage_logged");
+        const templateVars = {
+          user : req.session.user_id
+        }
+        console.log(req.session.user_id)
+        res.render("4_homepage_logged",templateVars);
       } else {
         res.render("2_register");
       }
     });
 
     // HOA POST registration page
-
   router.post("/register", (req,res) => {
-
+    const id = req.params.id;
+    req.session.user_id = req.body
     const user = req.body
-    console.log(user)
-
     const query= {
     text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
   VALUES ($1, $2, $3,$4,$5,$6)
@@ -101,14 +96,33 @@ module.exports = (db) => {
    db
   .query(query)
   .then(result => {
-    console.log(result.rows[0].id);
-    // console.log(users.row.id);
-    // req.session = users.row.id;
+  console.log(result.rows[0].id);
     res.redirect("/")
   })
   .catch(err => console.log(err))
 
 });
+
+
+  // homepage not logged in and logged in
+  router.get("/", (req, res) => {
+    console.log(req.session.user_id);
+    if (!req.session.user_id) {
+      res.render("1_homepage_nl");
+    } else {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.render("4_homepage_logged",templateVars);
+    }
+  });
+
+
+
+
+
+
+
 
   return router;
 };

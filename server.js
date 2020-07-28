@@ -41,6 +41,7 @@ app.use(cookieSession({
 const usersRoutes = require("./routes/users");
 const resourcesRoutes = require("./routes/resources");
 const categoriesRoutes = require("./routes/categories");
+const { Template } = require('ejs');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -52,3 +53,21 @@ app.use("/categories", categoriesRoutes(db));
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+  // homepage not logged in and logged in
+  app.get("/", (req, res) => {
+    console.log(req.session.user_id);
+    if (!req.session.user_id) {
+      res.render("1_homepage_nl");
+    } else {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.render("4_homepage_logged",templateVars)
+    }
+  });
+
+app.post("/logout", (req,res) => {
+    res.clearCookie("user_id",{path:"/"});
+    res.redirect('/login');
+  });
