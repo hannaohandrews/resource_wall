@@ -104,7 +104,7 @@ module.exports = (db) => {
     console.log(result.rows[0].id);
     // console.log(users.row.id);
     // req.session = users.row.id;
-    res.redirect("4_homepage_logged")
+    res.redirect("/")
   })
   .catch(err => console.log(err))
 
