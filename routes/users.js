@@ -15,7 +15,7 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
     if (!req.session.user_id) {
-      res.redirect("/1_homepage_nl");
+      res.redirect("1_homepage_nl");
     } else {
       const query = {
         type: `SELECT * FROM resources
@@ -37,6 +37,7 @@ module.exports = (db) => {
     }
   });
 
+  // homepage not logged in
   router.get("/", (req, res) => {
     if (!req.session.user_id) {
       res.render("1_homepage_nl");
@@ -45,13 +46,11 @@ module.exports = (db) => {
     }
   });
 
-  // registration page
-  router.get("/register", (req, res) => {
-    if (req.session.user_id) {
-      res.render("4_homepage_logged");
-    } else {
-      res.render("2_register");
-    }
+
+  // LOGOUT
+  router.post("/logout", (req,res) => {
+    res.clearCookie("user_id",{path:"/"});
+    res.redirect('/login');
   });
 
   // CJ profile page route to match input id - need to check if correct
@@ -77,17 +76,44 @@ module.exports = (db) => {
     }
   });
 
-  return router;
+    // GET registration page
+    router.get("/register", (req, res) => {
+      if (req.session.user_id) {
+        res.render("4_homepage_logged");
+      } else {
+        res.render("2_register");
+      }
+    });
 
-  return db.query(`
-  INSERT INTO users (name, email, password)
-  VALUES ($1, $2, $3)
-  RETURNING *`, [user.name, user.email, user.password])
-  .then(res => res.rows[0])
-  .catch('Error adding user');
+    // HOA POST registration page
+
+    router.post("/register", (req,res) => {
+      req.session.user_id = req.params.id;
+      const id = req.params.id;
+      if (!req.session.user_id) {
+        res.redirect("/register");
+      }else {
+        const query= {
+    type:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
+    VALUES ($1, $2, $3,$4,$5,$6,$7)
+    RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user_profile_image_url]
+  }
+   db
+  .query(query)
+  .then(result => {
+    const templateVars = {
+      resource: result.rows
+    }
+    console.log(templateVars)
+    res.render("4_homepage_logged", templateVars);
+  })
+  .catch(err => console.log(err))
+}
+});
+
+
   router.post('/', (req, res) => {
     const user = req.body;
-    user.password = bcrypt.hashSync(user.password, 12);
     database.addUser(user)
     .then(user => {
       if (!user) {
@@ -99,11 +125,11 @@ module.exports = (db) => {
     })
     .catch(e => res.send(e));
   });
-  router.post('/logout', (req, res) => {
-    req.session.userId = null;
-    res.send({});
-  });
 
 
+
+
+  return router
 };
+
 
