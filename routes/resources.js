@@ -35,7 +35,7 @@ module.exports = (db) => {
 
   router.post("/new", (req,res) => {
     if (!req.session.user_id) {
-      res.redirect("1_homepage_nl");
+      res.redirect("/users/");
       return;
     } else {
     const resource = req.body
