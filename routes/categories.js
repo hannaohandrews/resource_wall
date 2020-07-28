@@ -9,7 +9,7 @@ module.exports = (db) => {
       res.redirect("/home_login_register");
     } else {
       const query = {
-        type: `SELECT * FROM resources JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id WHERE category_id = $1`,
+        text: `SELECT * FROM resources JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id WHERE category_id = $1`,
         values: [id]
       };
         db

@@ -15,14 +15,14 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
     if (!req.session.user_id) {
-      res.redirect("/1_homepage_nl");
+      res.redirect("/");
     } else {
       const query = {
-        type: `SELECT * FROM resources
+        text: `SELECT * FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
         WHERE likes.active = TRUE OR resources.user_id = $1`,
-        values: [req.params.id]
+        values: [id]
       }
       db
       .query(query)
@@ -48,7 +48,7 @@ module.exports = (db) => {
   // registration page
   router.get("/register", (req, res) => {
     if (req.session.user_id) {
-      res.redirect("4_homepage_logged_in");
+      res.render("4_homepage_logged");
     } else {
       res.render("2_register");
     }
@@ -57,20 +57,21 @@ module.exports = (db) => {
   // CJ profile page route to match input id - need to check if correct
   router.get("/profile/:id", (req,res) => {
     const id = req.params.id;
+    console.log("id:", id)
     if (!req.session.user_id) {
       res.redirect("1_homepage_nl");
     } else {
       const query = {
-        type: `SELECT username, first_name, last_name, date_of_birth, email, profile_image_url FROM users WHERE id = $1`,
+        text: `SELECT username, first_name, last_name, date_of_birth, email, profile_image_url FROM users WHERE id = $1`,
         values: [id]
       };
         db
           .query(query)
           .then(result => {
             const templateVars = {
-              resource: result.rows[0]
+              user: result.rows[0]
             }
-            console.log(templateVars);
+            console.log("result" , result);
             res.render("6_profile", templateVars);
           })
           .catch(err => console.log(err))
@@ -81,32 +82,33 @@ module.exports = (db) => {
 };
 
 
-// app.get('/login/:id', (req, res) => {
-//   req.session.user_id = req.params.id;
-//   res.redirect('/');
+// // TAKEN FROM LIGHTBNB AS EXAMPLES
+
+// return pool.query(`
+// INSERT INTO users (name, email, password)
+// VALUES ($1, $2, $3)
+// RETURNING *`, [user.name, user.email, user.password])
+// .then(res => res.rows[0])
+// .catch('Error adding user');
+
+
+// router.post('/', (req, res) => {
+//   const user = req.body;
+//   user.password = bcrypt.hashSync(user.password, 12);
+//   database.addUser(user)
+//   .then(user => {
+//     if (!user) {
+//       res.send({error: "error"});
+//       return;
+//     }
+//     req.session.userId = user.id;
+//     res.send("ðŸ¤—");
+//   })
+//   .catch(e => res.send(e));
 // });
 
 
-
-// router.get("/login/:id", (req, res) => {
-//   req.session.user_id = req.params.id;
-//   const id = req.params.id;
-//   if (!req.session.user_id) {
-//     res.redirect("/home_login_register");
-//   } else {
-//     const query = {
-//       type: `SELECT * FROM users WHERE id = $1`,
-//       values: [id]
-//     };
-//       db
-//         .query(query)
-//         .then(result => {
-//           const templateVars = {
-//             resource: result.rows
-//           }
-//           res.render("6_profile", templateVars);
-//         })
-//         .catch(err => console.log(err))
-//   }
-// return router;
+// router.post('/logout', (req, res) => {
+//   req.session.userId = null;
+//   res.send({});
 // });
