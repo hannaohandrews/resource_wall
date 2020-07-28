@@ -14,9 +14,7 @@ module.exports = (db) => {
   router.get ("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
-    if (!req.session.user_id) {
-      res.redirect("/");
-    } else {
+
       const query = {
         text: `SELECT * FROM resources
         JOIN users ON resources.user_id = users.id
@@ -34,7 +32,7 @@ module.exports = (db) => {
         res.render("4_homepage_logged", templateVars);
       })
       .catch(err => console.log(err))
-    }
+
   });
 
   router.get("/", (req, res) => {
@@ -78,6 +76,27 @@ module.exports = (db) => {
     }
   });
 
+  router.post("/profile/:id", (req,res) => {
+    if (!req.session.user_id) {
+      res.redirect("1_homepage_nl");
+      return;
+    } else {
+    const user = req.body
+    console.log(user)
+    const query= {
+    text:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6,$7)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user.profile_image_url]
+  }
+  db
+  .query(query)
+  .then(result =>
+    res.redirect("/HOMELOG")
+  )
+  .catch(err => console.log(err))
+    }
+  });
+
     router.post("/register", (req,res) => {
       if (req.session.user_id) {
         res.render("4_homepage_logged")
@@ -89,17 +108,15 @@ module.exports = (db) => {
       text:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
     VALUES ($1, $2, $3,$4,$5,$6,$7)
     RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user.profile_image_url]
-  }
+    }
     db
     .query(query)
     .then(result =>
-      console.log(result.rows)
-    // req.session.user_id = userID(users.row.id)
-      res.redirect("/HOMELOG");
+      res.redirect("/HOMELOG")
     )
     .catch(err => console.log(err))
       }
-  });
+    });
 
   return router;
 };
