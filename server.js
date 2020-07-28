@@ -58,7 +58,10 @@ app.listen(PORT, () => {
   app.get("/", (req, res) => {
     console.log(req.session.user_id);
     if (!req.session.user_id) {
-      res.render("1_homepage_nl");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.render("1_homepage_nl",templateVars);
     } else {
       const templateVars = {
         user : req.session.user_id
@@ -66,6 +69,41 @@ app.listen(PORT, () => {
       res.render("4_homepage_logged",templateVars)
     }
   });
+
+    // GET registration page
+   app.get("/register", (req, res) => {
+      if (req.session.user_id) {
+        const templateVars = {
+          user : req.session.user_id
+        }
+        console.log(req.session.user_id)
+        res.render("4_homepage_logged",templateVars);
+      } else {
+        res.render("2_register");
+      }
+    });
+
+
+    // HOA POST registration page
+  app.post("/register", (req,res) => {
+    const id = req.params.id;
+    req.session.user_id = req.body
+    const user = req.body
+    const query= {
+    text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
+  };
+
+   db
+  .query(query)
+  .then(result => {
+  console.log(result.rows[0].id);
+    res.redirect("/")
+  })
+  .catch(err => console.log(err))
+});
+
 
 app.post("/logout", (req,res) => {
     res.clearCookie("user_id",{path:"/"});

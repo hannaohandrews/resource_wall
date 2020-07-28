@@ -7,7 +7,10 @@ module.exports = (db) => {
   router.get("/:id", (req,res) => {
     const id = req.params.id;
     if (!req.session.user_id) {
-      res.redirect("/1_homepage_nl");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/1_homepage_nl",templateVars);
     } else {
       const query = {
         type: `SELECT * FROM resources WHERE id = $1`,
@@ -26,8 +29,11 @@ module.exports = (db) => {
   });
 
   router.get ("/new", (req, res) => {
-    if (!req.session.user_id) {
-      res.redirect("/1_homepage_nl");
+      if (!req.session.user_id) {
+        const templateVars = {
+          user : req.session.user_id
+        }
+        res.redirect("/1_homepage_nl",templateVars);
     } else {
       res.render("7_add_new");
     }
