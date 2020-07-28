@@ -93,18 +93,19 @@ module.exports = (db) => {
     console.log(user)
 
     const query= {
-    text:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
-  VALUES ($1, $2, $3,$4,$5,$6,$7)
-  RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user.profile_image_url]
+    text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
   };
 
    db
   .query(query)
-  .then(result =>
-    console.log(result.rows)
-   // req.session.user_id = userID(users.row.id)
-    res.redirect("/HOMELOG")
-  )
+  .then(result => {
+    console.log(result.rows[0].id);
+    // console.log(users.row.id);
+    // req.session = users.row.id;
+    res.redirect("4_homepage_logged")
+  })
   .catch(err => console.log(err))
 
 });
