@@ -4,7 +4,7 @@
 <head>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>TinyApp</title>
+  <title>C&H</title>
 </head>
 <body>
   <%- include('partials/nav') %>
@@ -12,7 +12,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>URL - TinyApp Example</title>
+  <title>C&H</title>
 </head>
   <body>
       <div class="card text-center">
@@ -21,26 +21,29 @@
     <main style="margin: 1em;">
       <h2>REGISTRATION FORM</h2>
 
-      <form class="form-inline" action="/register" method="POST">
+      <form class="form-inline" action="/users/register" method="POST">
         <div class="form-group mb-2">
 
           <label for="username">Username:</label>
-          <input type="username" id="username" name="username">
-
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email">
-
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password">
+          <input type="text" id="username" name="username">
 
           <label for="first_name">First Name:</label>
-          <input type="first_name" id="first_name" name="first_name">
+          <input type="text" id="first_name" name="first_name">
 
           <label for="last_name">Last Name:</label>
           <input type="last_name" id="last_name" name="last_name">
 
           <label for="birthday">Birthday:</label>
           <input type="birthday" id="birthday" name="birthday">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email">
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
+
+          <label for="profile_image_url">Profile:</label>
+          <input type="profile_image_url" id="profile_image_url" name="profile_image_url">
+
 
           <button type='submit'>SUBMIT</button>
 

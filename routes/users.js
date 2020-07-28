@@ -87,49 +87,29 @@ module.exports = (db) => {
 
     // HOA POST registration page
 
-    router.post("/register", (req,res) => {
-      req.session.user_id = req.params.id;
-      const id = req.params.id;
-      if (!req.session.user_id) {
-        res.redirect("/register");
-      }else {
-        const query= {
-    type:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
-    VALUES ($1, $2, $3,$4,$5,$6,$7)
-    RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user_profile_image_url]
-  }
+  router.post("/register", (req,res) => {
+
+    const user = req.body
+    console.log(user)
+
+    const query= {
+    text:`INSERT INTO users (username, first_name, last_name, date_of_birth, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6,$7)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name, user.date_of_birth,user.email, user.password, user.profile_image_url]
+  };
+
    db
   .query(query)
-  .then(result => {
-    const templateVars = {
-      resource: result.rows
-    }
-    console.log(templateVars)
-    res.render("4_homepage_logged", templateVars);
-  })
+  .then(result =>
+    console.log(result.rows)
+   // req.session.user_id = userID(users.row.id)
+    res.redirect("/HOMELOG")
+  )
   .catch(err => console.log(err))
-}
+
 });
 
-
-  router.post('/', (req, res) => {
-    const user = req.body;
-    database.addUser(user)
-    .then(user => {
-      if (!user) {
-        res.send({error: "error"});
-        return;
-      }
-      req.session.userId = user.id;
-      res.send("NO");
-    })
-    .catch(e => res.send(e));
-  });
-
-
-
-
-  return router
+  return router;
 };
 
 
