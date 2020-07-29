@@ -16,21 +16,36 @@
 
   <body>
     <h1>PROFILE</h1>
-
+    <img src=<%= users.profile_image_url %> style="width:300px;">
+    <table class="table">
     <form class="form-inline" action="/users/profile/:id" method="POST">
       <div class="form-group mb-2">
-
-        <label for="username">USERNAME:</label>
-        <input type="text" id="username" name="username" value="<%= user.username %>">
-        <label for="first_name">FIRST NAME:</label>
-        <input type="text" id="first_name" name="first_name" value="<%= user.first_name %>">
-        <label for="last_name">LAST NAME:</label>
-        <input type="text" id="last_name" name="last_name" value="<%= user.last_name %>">
-        <label for="email">EMAIL:</label>
-        <input type="email" id="email" name="email" value="<%= user.email %>">
-        <label for="profile_image_url">PHOTO:</label>
-        <input type="url" id="profile_image_url" name="profile_image_url" value="<%= user.profile_image_url %>">
-        <button type='submit'>SUBMIT</button>
+        <tbody>
+          <tr>
+            <label for="username">USERNAME:</label>
+            <input type="text" id="username" name="username" value="<%= users.username %>">
+          </tr>
+          <tr>
+            <label for="first_name">FIRST NAME:</label>
+            <input type="text" id="first_name" name="first_name" value="<%= users.first_name %>">
+          </tr>
+          <tr>
+            <label for="last_name">LAST NAME:</label>
+            <input type="text" id="last_name" name="last_name" value="<%= users.last_name %>">
+          </tr>
+          <tr>
+            <label for="email">EMAIL:</label>
+            <input type="email" id="email" name="email" value="<%= users.email %>">
+          </tr>
+          <tr>
+            <label for="profile_image_url">PHOTO:</label>
+            <input type="url" id="profile_image_url" name="profile_image_url" value="<%= users.profile_image_url %>">
+          </tr>
+          <tr>
+        <button type='submit'>UPDATE</button>
+        </tr>
+      </tbody>
+      </table>
        </div>
     </form>
   </body>

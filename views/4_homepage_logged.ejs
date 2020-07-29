@@ -15,5 +15,30 @@
   <body>
     <h1>HOMEPAGE_LOGGED_IN</h1>
     <%- include('partials/categories') %>
+    <main>
+    <% for (let item in resource) { %>
+      <header>
+      <div class ="resource-image">
+
+        <a href= <%= resource[item].resource_url %> >
+          <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
+        </a>
+      </div>
+    </header>
+    <footer>
+      <div class="resource-details">
+        <p><%= resource[item].title %></p>
+        <p><%= resource[item].rating %></p>
+        <p><%= resource[item].user_id %></p>
+        <!-- NEED TO ADD LIKE POST LINK HERE -->
+        <!-- <form method="POST" action="/"><button>Delete</button></form> -->
+    </div>
+  </footer>
+    <% } %>
+    </main>
   </body>
 </html>
+
+
+
+<!-- title, resource_url, description, resource_image_url, rating, user_id -->
