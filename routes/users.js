@@ -25,13 +25,13 @@ module.exports = (db) => {
       .query(query)
       .then(result => {
         const templateVars = {
-          resource: result.rows
+          resource: result.rows,
+          user : req.session.user_id
         }
         console.log(templateVars)
         res.render("4_homepage_logged", templateVars);
       })
       .catch(err => console.log(err))
-
   });
 
   // LOGOUT
@@ -45,7 +45,10 @@ module.exports = (db) => {
     const id = req.params.id;
     console.log("id:", id)
     if (!req.session.user_id) {
-      res.redirect("1_homepage_nl");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
     } else {
       const query = {
         text: `SELECT username, first_name, last_name, email, profile_image_url FROM users WHERE id = $1`,
@@ -68,7 +71,7 @@ module.exports = (db) => {
     const id = req.session.user_id;
     console.log("id:" ,id)
     if (!req.session.user_id) {
-      res.redirect("1_homepage_nl");
+      res.redirect("/");
       return;
     } else {
     const user = req.body
