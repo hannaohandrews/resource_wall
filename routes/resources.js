@@ -73,8 +73,8 @@ module.exports = (db) => {
   return router;
 };
 
-// router.get("/id/edit") -> to edit resources url description
-//router.post("/id") -> add comment, cateory, //
+
+//router.post("resources/id") -> add comment, cateory, //
 // //const promises = [];
 // if (conditionOne) {
 //   promises.push(promiseOne);
@@ -86,5 +86,5 @@ module.exports = (db) => {
 //   promises.push(promiseThree);
 // }
 // Promise.all(promises).then(() => console.log('all done'));
-// ONE BUTTON DIRECTING TO SOMEWHERE 
+// ONE BUTTON DIRECTING TO SOMEWHERE
 

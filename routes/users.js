@@ -5,6 +5,10 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+ // req.seesion.user_id = creates cookies
+ // req.params is what you put in
+ // req.params.id = :id put in
+
 const express = require('express');
 const router  = express.Router();
 
