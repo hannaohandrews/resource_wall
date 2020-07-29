@@ -95,7 +95,7 @@ module.exports = (db) => {
     db
     .query(query)
     .then(result =>
-      res.redirect("/")
+      result.redirect("/")
     )
     .catch(err => console.log(err))
     }
