@@ -70,7 +70,14 @@ app.listen(PORT, () => {
     }
   });
 
-    // GET registration page
+
+//  GET LOGIN PAGE
+  app.get(' /login/:id', (req, res) => {
+  req.session.user_id = req.params.id;
+  res.redirect('/');
+});
+
+// GET registration page
    app.get("/register", (req, res) => {
       if (req.session.user_id) {
         const templateVars = {
@@ -106,6 +113,6 @@ app.listen(PORT, () => {
 
 
 app.post("/logout", (req,res) => {
-    res.clearCookie("user_id",{path:"/"});
-    res.redirect('/login');
+    req.session = null
+    res.redirect('/');
   });
