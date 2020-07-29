@@ -71,7 +71,10 @@ module.exports = (db) => {
     const id = req.session.user_id;
     console.log("id:" ,id)
     if (!req.session.user_id) {
-      res.redirect("/");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
       return;
     } else {
     const user = req.body

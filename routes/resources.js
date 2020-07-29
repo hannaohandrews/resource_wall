@@ -5,9 +5,15 @@ module.exports = (db) => {
 
   router.get("/new", (req, res) => {
     if (!req.session.user_id) {
-      res.render("/users/");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
     } else {
-      res.render("7_add_new");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.render("7_add_new", templateVars);
     }
   });
 
@@ -18,7 +24,7 @@ module.exports = (db) => {
       const templateVars = {
         user : req.session.user_id
       }
-      res.redirect("/1_homepage_nl",templateVars);
+      res.redirect("/",templateVars);
     } else {
       const query = {
         text: `SELECT * FROM resources WHERE id = $1`,
@@ -36,19 +42,13 @@ module.exports = (db) => {
     }
   });
 
-<<<<<<< HEAD
   router.post("/new", (req,res) => {
     if (!req.session.user_id) {
-      res.redirect("/users/");
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
       return;
-=======
-  router.get ("/new", (req, res) => {
-      if (!req.session.user_id) {
-        const templateVars = {
-          user : req.session.user_id
-        }
-        res.redirect("/1_homepage_nl",templateVars);
->>>>>>> e7acabe77c137415b2eae553e695b979d7d27d1b
     } else {
     const resource = req.body
     const user = req.session.user_id
