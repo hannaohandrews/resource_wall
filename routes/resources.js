@@ -26,21 +26,39 @@ module.exports = (db) => {
       }
       res.redirect("/",templateVars);
     } else {
-      const query = {
-        text: `
-        SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, resources.user_id AS user_id
-        FROM resources WHERE id = $1
-        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id`,
-        values: [id]
-      }
-      db
-      .query(query)
+      // const query = {
+      //   text: `
+      //   SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, (SELECT title FROM categories AS category, comments.comment_text AS comments
+      //   FROM resources
+      //   JOIN users ON resources.user_id = users.id
+      //   JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id
+      //   JOIN comments ON comments.resource_id = resources.id
+      //   WHERE resources.id = $1
+      //   GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, categories.title`,
+      //   values: [id]
+      // }
+
+      const promiseOne = db.query('SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
+
+      const promiseTwo = db.query('SELECT categories.title AS category FROM categories JOIN resource_categories ON category_id = categories.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
+
+      const promiseThree = db.query('SELECT comment_text AS comments FROM comments JOIN users ON user_id = users.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
+
+      const promises = [promiseOne, promiseTwo, promiseThree];
+      Promise.all(promises)
+      // .then(() => console.log('all done'));
+      // db
+      // .query(query)
       .then(result => {
         const templateVars = {
-          resource: result.rows[0],
+          resource: result[0].rows[0],
+          categories: result[1].rows,
+          comments: result[2].rows,
           user : req.session.user_id
         }
+        console.log(templateVars)
         res.render("5_url_desc", templateVars);
+        //console.log("result:", result)
       })
       .catch(err => console.log(err))
     }

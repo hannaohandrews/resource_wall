@@ -51,13 +51,13 @@ app.use("/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // homepage not logged in
-app.get("/", (req, res) => {
-  if (!req.session.user_id) {
-    res.render("1_homepage_nl");
-  } else {
-    res.render("4_homepage_logged");
-  }
-});
+// app.get("/", (req, res) => {
+//   if (!req.session.user_id) {
+//     res.render("1_homepage_nl");
+//   } else {
+//     res.render("4_homepage_logged");
+//   }
+// });
 
 // GET registration page
 app.get("/register", (req, res) => {
@@ -164,10 +164,14 @@ app.post("/search", (req, res) => {
     return;
   } else {
     const query = {
-      text: `SELECT * FROM resources
-      WHERE title LIKE $1`,
-      values: [req.body]
+      text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
+      FROM resources
+      JOIN users ON resources.user_id = users.id
+      WHERE title ILIKE $1
+      GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
+      values: [`%${req.body.search}%`]
     };
+    console.log(req.body);
       db
         .query(query)
         .then(result => {
@@ -175,6 +179,7 @@ app.post("/search", (req, res) => {
             resource: result.rows,
             user : req.session.user_id
           }
+          console.log(result);
           res.render("9_search_result", templateVars);
         })
         .catch(err => console.log(err))

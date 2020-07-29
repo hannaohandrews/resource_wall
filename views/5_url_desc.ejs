@@ -19,8 +19,13 @@
         <header>
           <div class="resource-details">
             <p><%= resource.title %></p>
-            <p><%= resource.user_id %></p>
+            <p><%= resource.username %></p>
             <p><%= resource.rating %></p>
+            <label>CATEGORIES:</label>
+            <% for (let category of categories) { %>
+
+            <p><%= category.category %></p>
+            <% } %>
             <!-- NEED TO ADD LIKE POST LINK HERE -->
             <!-- <form method="POST" action="/"><button>Delete</button></form> -->
         </div>
@@ -45,6 +50,13 @@
         <button type='submit'>SUBMIT</button>
       </div>
     </form>
+    <div class="old-comments">
+    <label>OLD COMMENTS:</label>
+    <% for (let comment of comments) { %>
+
+      <p><%= comment.comments %></p>
+      <% } %>
+    </div>
   </main>
   </body>
 </html>
