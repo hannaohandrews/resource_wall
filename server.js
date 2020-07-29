@@ -53,9 +53,15 @@ app.use("/categories", categoriesRoutes(db));
 // homepage not logged in
 app.get("/", (req, res) => {
   if (!req.session.user_id) {
-    res.render("1_homepage_nl");
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.render("1_homepage_nl",templateVars);
   } else {
-    res.render("4_homepage_logged");
+    const templateVars = {
+      user: req.session.user_id
+    }
+    res.render("4_homepage_logged",templateVars);
   }
 });
 
@@ -64,7 +70,10 @@ app.get("/register", (req, res) => {
   if (req.session.user_id) {
     res.render("4_homepage_logged");
   } else {
-    res.render("2_register");
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.render("2_register",templateVars);
   }
 });
 
@@ -115,7 +124,7 @@ app.listen(PORT, () => {
 
 
 //  GET LOGIN PAGE
-  app.get(' /login/:id', (req, res) => {
+  app.get('/login/:id', (req, res) => {
   req.session.user_id = req.params.id;
   res.redirect('/');
 });
