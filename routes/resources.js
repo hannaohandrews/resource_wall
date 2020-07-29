@@ -68,7 +68,6 @@ module.exports = (db) => {
           resource: result.rows[0],
           user : req.session.user_id,
           id : req.params.id
-
         }
         res.render("5_url_desc", templateVars);
       })
@@ -96,15 +95,13 @@ module.exports = (db) => {
     const rating = req.body.rating;
     const comment = req.body.comment
 
-
-    // const promiseOne = db.query (
-    //   'INSERT INTO categories(id) VALUES ($1)',
-    //   [req.body.category]);
+    const promiseOne = db.query (
+      'INSERT INTO resource_categories(category_id, resource_id) VALUES ($1,$2)',
+      [category,resource_id]);
 
      const promiseTwo = db.query (
      'INSERT INTO ratings(rating, user_id, resource_id) VALUES ($1,$2,$3)',
      [rating, user_id,resource_id]);
-
 
      const promiseThree = db.query (
       'INSERT INTO comments (comment_text, user_id, resource_id) VALUES ($1,$2,$3)',
@@ -124,7 +121,7 @@ module.exports = (db) => {
 
     .then(result =>{
 
-    res.redirect('/login/:id')
+    res.redirect('users/login/:id')
     console.log('redirected')
     })
     .catch(err => console.log(err))
