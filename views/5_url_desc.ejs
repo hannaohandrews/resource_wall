@@ -14,5 +14,18 @@
   <body>
     <h1>URL </h1>
     <%- include('partials/categories') %>
+
+    <form class="form-resource" action="/resources/:id" method="POST">
+      <div class="form-group mb-2">
+
+        <label for="category">ADD CATEGORY:</label>
+        <input type="text" id="category" name="category">
+        <label for="rating">RATING:</label>
+        <input type="number" id="rating" name="rating">
+        <label for="comment">COMMENT:</label>
+        <input type="comment" id="comment" name="comment">
+        <button type='submit'>SUBMIT</button>
+      </div>
+    </form>
   </body>
 </html>

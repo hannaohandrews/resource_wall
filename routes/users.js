@@ -14,13 +14,8 @@ module.exports = (db) => {
   router.get ("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
-    if (!req.session.user_id) {
-      const templateVars = {
-        user : req.session.user_id
-      }
-    }else {
       const query = {
-        type: `SELECT * FROM resources
+        text: `SELECT * FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
         WHERE likes.active = TRUE OR resources.user_id = $1`,
@@ -37,10 +32,7 @@ module.exports = (db) => {
         res.render("4_homepage_logged", templateVars);
       })
       .catch(err => console.log(err))
-    }
   });
-
-
 
   // LOGOUT
   router.post("/logout", (req,res) => {
@@ -51,48 +43,60 @@ module.exports = (db) => {
   // CJ profile page route to match input id - need to check if correct
   router.get("/profile/:id", (req,res) => {
     const id = req.params.id;
+    console.log("id:", id)
     if (!req.session.user_id) {
       const templateVars = {
         user : req.session.user_id
       }
-      res.redirect("/1_homepage_nl",templateVars);
+      res.redirect("/",templateVars);
     } else {
       const query = {
-        type: `SELECT username, first_name, last_name, date_of_birth, email, profile_image_url FROM users WHERE id = $1`,
+        text: `SELECT username, first_name, last_name, email, profile_image_url FROM users WHERE id = $1`,
         values: [id]
       };
         db
           .query(query)
           .then(result => {
             const templateVars = {
-              resource: result.rows[0]
+              user: result.rows[0]
             }
-            console.log(templateVars);
+            console.log("result" , result);
             res.render("6_profile", templateVars);
           })
           .catch(err => console.log(err))
     }
   });
 
-
-
-  // homepage not logged in and logged in
-  router.get("/", (req, res) => {
-    console.log(req.session.user_id);
+  router.post("/profile/:id", (req,res) => {
+    const id = req.session.user_id;
+    console.log("id:" ,id)
     if (!req.session.user_id) {
       const templateVars = {
         user : req.session.user_id
       }
-      res.redirect("/1_homepage_nl",templateVars);
+      res.redirect("/",templateVars);
+      return;
     } else {
-      const templateVars = {
-        user : req.session.user_id
-      }
-      res.render("4_homepage_logged",templateVars);
+    const user = req.body
+    console.log(user)
+    const query= {
+    text:`UPDATE users
+    SET username = $1,
+    first_name = $2,
+    last_name = $3,
+    email = $4,
+    profile_image_url = $5
+    WHERE id = $6
+    RETURNING *`, values : [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
+    }
+    db
+    .query(query)
+    .then(result =>
+      res.redirect("/")
+    )
+    .catch(err => console.log(err))
     }
   });
-
-
 
   return router;
 };

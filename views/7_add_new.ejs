@@ -14,5 +14,24 @@
   <%- include('partials/nav') %>
   <body>
     <h1>ADD_NEW</h1>
+
+    <form class="form-inline" action="/resources/new" method="POST">
+      <div class="form-group mb-2">
+
+        <label for="title">TITLE:</label>
+        <input type="text" id="title" name="title">
+        <label for="resource_url">URL:</label>
+        <input type="url" id="url" name="url">
+        <label for="resource_image_url">PICTURE:</label>
+        <input type="url" id="resource_image_url" name="resource_image_url">
+        <label for="category">CATEGORY:</label>
+        <input type="text" id="category" name="category">
+        <label for="description">DESCRIPTION:</label>
+        <input type="text" id="description" name="description">
+        <label for="rating">RATING:</label>
+        <input type="text" id="rating" name="rating" placeholder="/5">
+        <button type='submit'>SUBMIT</button>
+       </div>
+    </form>
   </body>
 </html>

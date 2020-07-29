@@ -50,6 +50,49 @@ app.use("/resources", resourcesRoutes(db));
 app.use("/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
+// homepage not logged in
+app.get("/", (req, res) => {
+  if (!req.session.user_id) {
+    res.render("1_homepage_nl");
+  } else {
+    res.render("4_homepage_logged");
+  }
+});
+
+// GET registration page
+app.get("/register", (req, res) => {
+  if (req.session.user_id) {
+    res.render("4_homepage_logged");
+  } else {
+    res.render("2_register");
+  }
+});
+
+    // HOA POST registration page
+
+app.post("/register", (req,res) => {
+
+  const user = req.body
+  console.log(user)
+
+  const query= {
+  text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
+  };
+
+   db
+  .query(query)
+  .then(result => {
+    console.log(result.rows[0].id);
+    // console.log(users.row.id);
+    // req.session = users.row.id;
+    res.redirect("/")
+  })
+  .catch(err => console.log(err))
+
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

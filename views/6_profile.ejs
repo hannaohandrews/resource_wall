@@ -16,5 +16,22 @@
 
   <body>
     <h1>PROFILE</h1>
+
+    <form class="form-inline" action="/users/profile/:id" method="POST">
+      <div class="form-group mb-2">
+
+        <label for="username">USERNAME:</label>
+        <input type="text" id="username" name="username" value="<%= user.username %>">
+        <label for="first_name">FIRST NAME:</label>
+        <input type="text" id="first_name" name="first_name" value="<%= user.first_name %>">
+        <label for="last_name">LAST NAME:</label>
+        <input type="text" id="last_name" name="last_name" value="<%= user.last_name %>">
+        <label for="email">EMAIL:</label>
+        <input type="email" id="email" name="email" value="<%= user.email %>">
+        <label for="profile_image_url">PHOTO:</label>
+        <input type="url" id="profile_image_url" name="profile_image_url" value="<%= user.profile_image_url %>">
+        <button type='submit'>SUBMIT</button>
+       </div>
+    </form>
   </body>
 </html>
