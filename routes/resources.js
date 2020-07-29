@@ -19,12 +19,14 @@ module.exports = (db) => {
 
   // CJ resource url page
   router.get("/:id", (req,res) => {
+    console.log('req.paras',req.params)
+    console.log('req.session',req.session)
     const id = req.params.id;
     if (!req.session.user_id) {
       const templateVars = {
-        user : req.session.user_id
+        user: req.session.user_id
       }
-      res.redirect("/",templateVars);
+      res.render("1_homepage_nl",templateVars);
     } else {
       const query = {
         text: `SELECT * FROM resources WHERE id = $1`,
@@ -34,6 +36,7 @@ module.exports = (db) => {
       .query(query)
       .then(result => {
         const templateVars = {
+          user: req.session.user_id,
           resource: result.rows[0]
         }
         res.render("5_url_desc", templateVars);
@@ -69,3 +72,19 @@ module.exports = (db) => {
 
   return router;
 };
+
+// router.get("/id/edit") -> to edit resources url description
+//router.post("/id") -> add comment, cateory, //
+// //const promises = [];
+// if (conditionOne) {
+//   promises.push(promiseOne);
+// }
+// if (conditionTwo) {
+//   promises.push(promiseTwo);
+// }
+// if (conditionThree) {
+//   promises.push(promiseThree);
+// }
+// Promise.all(promises).then(() => console.log('all done'));
+// ONE BUTTON DIRECTING TO SOMEWHERE 
+
