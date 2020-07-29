@@ -10,6 +10,10 @@
 
     <main style="margin: 1em;">
       <% if (user) { %>
+        <form class="form-inline" action="/search/" method="POST">
+          <input type="text" id="search" name="search">
+          <button type='submit'>SEARCH</button>
+      </form>
        <h3>Logged in as:</h3>
        <h3><%= user %></h3>
        <form class="form-inline" action="/logout" method="POST">

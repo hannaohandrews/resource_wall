@@ -154,6 +154,32 @@ app.listen(PORT, () => {
   .catch(err => console.log(err))
 });
 
+app.post("/search", (req, res) => {
+  const id = req.params.id;
+  if (!req.session.user_id) {
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.redirect("/",templateVars);
+    return;
+  } else {
+    const query = {
+      text: `SELECT * FROM resources
+      WHERE title LIKE $1`,
+      values: [req.body]
+    };
+      db
+        .query(query)
+        .then(result => {
+          const templateVars = {
+            resource: result.rows,
+            user : req.session.user_id
+          }
+          res.render("9_search_result", templateVars);
+        })
+        .catch(err => console.log(err))
+  }
+});
 
 app.post("/logout", (req,res) => {
     req.session = null
