@@ -30,9 +30,12 @@
         <p><%= resource[item].title %></p>
         <p><%= resource[item].rating %></p>
         <p><%= resource[item].username %></p>
-        <!-- NEED TO ADD LIKE POST LINK HERE -->
-        <!-- <form method="POST" action="/"><button>Delete</button></form> -->
-        <!-- /resource/resource[item].id -->
+        <!-- NEED TO ADD LIKE POST LINK HERE --> -->
+
+        <div class="post" postid=<%= resource[item].like %>>
+          <input type="button" class='like' value="Like" /> </input>
+      </div>
+        <!-- <!-- /resource/resource[item].id -->
     </div>
   </footer>
     <% } %>

@@ -15,12 +15,12 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
       const query = {
-        text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
+        text: `SELECT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
         FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
         WHERE likes.active = TRUE OR resources.user_id = $1
-        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
+        GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
         values: [id]
       }
       db
@@ -94,9 +94,12 @@ module.exports = (db) => {
     }
     db
     .query(query)
-    .then(result =>
-      res.redirect("/")
-    )
+    .then(() => {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect(`/users/login/${id}`, 200);
+    })
     .catch(err => console.log(err))
     }
   });

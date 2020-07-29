@@ -38,7 +38,7 @@ module.exports = (db) => {
       //   values: [id]
       // }
 
-      const promiseOne = db.query('SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
+      const promiseOne = db.query('SELECT resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
 
       const promiseTwo = db.query('SELECT categories.title AS category FROM categories JOIN resource_categories ON category_id = categories.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
 
