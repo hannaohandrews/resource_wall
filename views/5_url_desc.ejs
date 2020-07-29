@@ -14,10 +14,28 @@
   <body>
     <h1>URL </h1>
     <%- include('partials/categories') %>
+    <main>
+
+        <header>
+          <div class="resource-details">
+            <p><%= resource.title %></p>
+            <p><%= resource.user_id %></p>
+            <p><%= resource.rating %></p>
+            <!-- NEED TO ADD LIKE POST LINK HERE -->
+            <!-- <form method="POST" action="/"><button>Delete</button></form> -->
+        </div>
+       </header>
+      <footer>
+        <div class ="resource-image">
+          <a href= <%= resource.resource_url %> >
+            <img src=<%= resource.resource_image_url %>>
+          </a>
+          <p><%= resource.description %></p>
+        </div>
+      </footer>
 
     <form class="form-resource" action="/resources/:id" method="POST">
       <div class="form-group mb-2">
-
         <label for="category">ADD CATEGORY:</label>
         <input type="text" id="category" name="category">
         <label for="rating">RATING:</label>
@@ -27,5 +45,6 @@
         <button type='submit'>SUBMIT</button>
       </div>
     </form>
+  </main>
   </body>
 </html>

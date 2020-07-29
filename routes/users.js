@@ -60,7 +60,8 @@ module.exports = (db) => {
           .query(query)
           .then(result => {
             const templateVars = {
-              user: result.rows[0]
+              users: result.rows[0],
+              user : req.session.user_id
             }
             console.log("result" , result);
             res.render("6_profile", templateVars);

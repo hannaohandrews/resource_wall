@@ -27,14 +27,18 @@ module.exports = (db) => {
       res.redirect("/",templateVars);
     } else {
       const query = {
-        text: `SELECT * FROM resources WHERE id = $1`,
+        text: `
+        SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, resources.user_id AS user_id
+        FROM resources WHERE id = $1
+        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id`,
         values: [id]
       }
       db
       .query(query)
       .then(result => {
         const templateVars = {
-          resource: result.rows[0]
+          resource: result.rows[0],
+          user : req.session.user_id
         }
         res.render("5_url_desc", templateVars);
       })
