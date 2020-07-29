@@ -15,8 +15,10 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
     if (!req.session.user_id) {
-      res.redirect("1_homepage_nl");
-    } else {
+      const templateVars = {
+        user : req.session.user_id
+      }
+    }else {
       const query = {
         type: `SELECT * FROM resources
         JOIN users ON resources.user_id = users.id
@@ -89,11 +91,6 @@ module.exports = (db) => {
       res.render("4_homepage_logged",templateVars);
     }
   });
-
-
-
-
-
 
 
 
