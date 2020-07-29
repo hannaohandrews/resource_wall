@@ -142,7 +142,7 @@ app.listen(PORT, () => {
 
 
 //  GET LOGIN PAGE
-  app.get(' /login/:id', (req, res) => {
+  app.get('/login/:id', (req, res) => {
   req.session.user_id = req.params.id;
   res.redirect('/');
 });
