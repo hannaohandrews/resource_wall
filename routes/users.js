@@ -15,10 +15,12 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     const id = req.params.id;
       const query = {
-        text: `SELECT * FROM resources
+        text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, resources.user_id AS user_id
+        FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
-        WHERE likes.active = TRUE OR resources.user_id = $1`,
+        WHERE likes.active = TRUE OR resources.user_id = $1
+        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id`,
         values: [id]
       }
       db
