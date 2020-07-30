@@ -10,14 +10,52 @@ const router = express.Router();
 
 module.exports = (db) => {
 
+  function removeDups(names) {
+    let unique = {};
+    names.forEach(function(i) {
+      if(!unique[i.id]) {
+        unique[i.id] = i;
+      }
+    });
+    let unArr = Object.values(unique);
+    return unArr
+  }
+
+  const updateLike = (res, id)=>{
+    console.log(`id for update like: ${id}`);
+    // req.session.user_id = req.params.id;
+    // const id = req.params.id;
+      const query = {
+        text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+        FROM resources
+        JOIN users ON resources.user_id = users.id
+        JOIN likes ON likes.user_id = users.id
+        WHERE likes.active = TRUE OR resources.user_id = $1
+        GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
+        values: [id]
+      }
+      db
+      .query(query)
+      .then(result => {
+        let arr = removeDups(result.rows.reverse())
+        const templateVars = {
+          resource: [],
+          user : id
+        }
+        console.log("=====success update like", JSON.stringify(arr))
+        res.render("4_homepage_logged", templateVars);
+      })
+      .catch(err => console.log(err))
+  }
+
 
   // CJ user home page with all resources
   router.get("/login/:id", (req, res) => {
     console.log(req.session);
     req.session.user_id = req.params.id;
     const id = req.params.id;
-    const query = {
-      text: `SELECT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+      const query = {
+        text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
         FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
@@ -28,9 +66,11 @@ module.exports = (db) => {
     db
       .query(query)
       .then(result => {
+
+        // console.log(`rows: ${JSON.stringify(removeDups(result.rows))}`)
         const templateVars = {
-          resource: result.rows,
-          user: req.session.user_id
+          resource: removeDups(result.rows),
+          user : req.session.user_id
         }
         console.log("=====", req.session.user_id)
         res.render("4_homepage_logged", templateVars);
@@ -38,9 +78,6 @@ module.exports = (db) => {
       .catch(err => console.log(err))
   });
 
-  router.get("/", (req, res) => {
-    res.render('homepage_logged_empty')
-  })
 
   // LOGOUT
   router.post("/logout", (req, res) => {
@@ -98,14 +135,82 @@ module.exports = (db) => {
     email = $4,
     profile_image_url = $5
     WHERE id = $6
-    RETURNING *`,
-        values: [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
+    RETURNING *`, values : [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
+    }
+    db
+    .query(query)
+    .then(result =>
+      res.redirect("/")
+    )
+    .catch(err => console.log(err))
+    }
+  });
+
+  router.post("/:id/like", (req,res) => {
+
+    console.log(req.session.user_id);
+    console.log("req.params:", req.params);
+    console.log("req:", req.body)
+
+    if (!req.session.user_id) {
+      const templateVars = {
+        user : req.session.user_id
       }
-      db
+      res.redirect(200, "/",templateVars);
+      return;
+    } else {
+      let likeStatus = req.body.likeStatus;
+      let queryText;
+      console.log(`likeStatus: ${likeStatus}`)
+      if (likeStatus === 'true') {
+        queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2 RETURNING *';
+      } else {
+        queryText = 'UPDATE likes SET active = true WHERE user_id = $1 AND resource_id = $2 RETURNING *';
+      }
+      const query = {
+        text: queryText,
+        values: [req.session.user_id, req.params.id]
+      }
+      db.query(query)
+      .then(result =>
+        console.log(result.rows),
+        console.log("liked"),
+        updateLike(res, req.session.user_id),
+        // res.redirect(200,"/")
+      )
+      .catch(err => console.log(err))
+    }
+  });
+
+  router.get("/", (req, res) => {
+    console.log(req.session.user_id);
+    if (!req.session.user_id) {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.render("1_homepage_nl",templateVars);
+    } else {
+      req.session.user_id = req.params.id;
+      const id = req.params.id;
+        const query = {
+          text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+          FROM resources
+          JOIN users ON resources.user_id = users.id
+          JOIN likes ON likes.user_id = users.id
+          WHERE likes.active = TRUE OR resources.user_id = $1
+          GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
+          values: [id]
+        }
+        db
         .query(query)
-        .then(result =>
-          result.redirect("/")
-        )
+        .then(result => {
+          const templateVars = {
+            resource: result.rows,
+            user : req.session.user_id
+          }
+          console.log(templateVars)
+          res.render("4_homepage_logged", templateVars);
+        })
         .catch(err => console.log(err))
     }
   });

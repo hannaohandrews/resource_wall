@@ -1,31 +1,30 @@
-
-$(function () {
-  $('.like').click(function () { likeFunction(this); });
-});
+$(document).ready(function() {
 
 
-function likeFunction(caller) {
-  var postId = caller.parentElement.getAttribute('postid');
-  var likeStatus = caller.parentElement.getAttribute('likestatus');
-  $.ajax({
-    method: "POST",
-    url: `/resources/${postId}/like`,
-    data: `likeStatus=${likeStatus}`,
-    xhrFields: {withCredentials: true}
-  }).done(() => {
-    console.log("success")
-  });;
+    $('.like').click(function () {
+      likeFunction(this);
+      console.log("stuff")
+    });
 
-  // $.ajax({
-  //     type: "POST",
-  //     url: `http://localhost:8080/resources/${postId}/like`,
-  //     data: `likeStatus=${likeStatus}`,
-  //     xhrFields: {withCredentials: true},
-  //     success: function () {
-  //       console.log("success")
-  //       // need to update the html properties of the button
-  //       // define style for each state
-  //       // put the button in that state
-  //     }
-  // });
-}
+
+  function likeFunction(caller) {
+    var postId = caller.parentElement.getAttribute('postid');
+    console.log("postif=d", postId);
+    var likeStatus = caller.parentElement.getAttribute('likestatus');
+    $.ajax({
+      method: "POST",
+      url: `/users/${postId}/like`,
+      data: `likeStatus=${likeStatus}`,
+      xhrFields: {withCredentials: true}
+    }).done(() => {
+      let newCall = caller.parentElement.getAttribute('likestatus')
+      console.log("newCall:", newCall);
+      let newStatus = (newCall === 'true') ? 'false' : 'true'
+      console.log("newStatus:", newStatus)
+      $(caller.parentElement).attr('likestatus',  String(newStatus))
+      $(caller).val(newStatus)
+      // $(caller).toggleClass(red)
+      console.log("success")
+    });;
+  }
+})

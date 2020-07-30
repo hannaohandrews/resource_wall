@@ -6,6 +6,7 @@ const PORT       = process.env.PORT || 8080;
 const ENV        = process.env.ENV || "development";
 const express    = require("express");
 const bodyParser = require("body-parser");
+// const cors       = require("cors");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
@@ -23,6 +24,7 @@ db.connect();
 app.use(morgan('dev'));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors);
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -51,22 +53,6 @@ app.use("/resources", resourcesRoutes(db));
 app.use("/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
-// homepage not logged in
-app.get("/", (req, res) => {
-  if (!req.session.user_id) {
-    const templateVars = {
-      user : req.session.user_id
-    }
-    res.render("1_homepage_nl",templateVars);
-  } else {
-    const templateVars = {
-      resource : res.rows,
-      user : req.session.user_id
-    }
-    console.log('homepage logged in')
-    res.render("4_homepage_logged",templateVars);
-  }
-});
 
 // GET registration page
 app.get("/register", (req, res) => {
@@ -111,109 +97,76 @@ app.post("/register", (req,res) => {
   .catch(err => console.log(err))
 });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
 
-  // homepage not logged in and logged in
-  app.get("/", (req, res) => {
-    console.log(req.session.user_id);
-    if (!req.session.user_id) {
-      const templateVars = {
-        user : req.session.user_id
-      }
-      res.render("1_homepage_nl",templateVars);
-    } else {
-      req.session.user_id = req.params.id;
-      const id = req.params.id;
-        const query = {
-          text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
-          FROM resources
-          JOIN users ON resources.user_id = users.id
-          JOIN likes ON likes.user_id = users.id
-          WHERE likes.active = TRUE OR resources.user_id = $1
-          GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
-          values: [id]
-        }
-        db
-        .query(query)
-        .then(result => {
-          const templateVars = {
-            resource: result.rows,
-            user : req.session.user_id
-          }
-          console.log(templateVars)
-          res.render("4_homepage_logged", templateVars);
-        })
-        .catch(err => console.log(err))
+
+// homepage not logged in and logged in
+app.get("/", (req, res) => {
+  console.log(req.session.user_id);
+  if (!req.session.user_id) {
+    const templateVars = {
+      user : req.session.user_id
     }
-  });
-
-
-  // app.post("/users/login/:id/resources/:resource_id/like", (res,req) => {
-  //   if (!req.session.user_id) {
-  //     const templateVars = {
-  //       user : req.session.user_id
-  //     }
-  //     res.redirect("/",templateVars);
-  //     return;
-  //   } else {
-  //     const likeStatus = req.body.likeStatus;
-  //     let queryText;
-  //     if (likeStatus === true) {
-  //       queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2';
-  //     } else {
-  //       queryText = 'UPDATE likes SET active = true WHERE user_id = $1 AND resource_id = $2';
-  //     }
-  //     const query = {
-  //       text: queryText,
-  //       values: [req.session.user_id, req.params]
-  //     }
-  //     db.query(query)
-  //     .then(() => res.send(200) )
-  //     .catch(err => console.log(err))
-  //   }
-  // });
-
-//  GET LOGIN PAGE
-  app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/');
-});
-
-// GET registration page
-   app.get("/register", (req, res) => {
-      if (req.session.user_id) {
+    res.render("1_homepage_nl",templateVars);
+  } else {
+    req.session.user_id = req.params.id;
+    const id = req.params.id;
+      const query = {
+        text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+        FROM resources
+        JOIN users ON resources.user_id = users.id
+        JOIN likes ON likes.user_id = users.id
+        WHERE likes.active = TRUE OR resources.user_id = $1
+        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
+        values: [id]
+      }
+      db
+      .query(query)
+      .then(result => {
         const templateVars = {
+          resource: result.rows,
           user : req.session.user_id
         }
-        console.log(req.session.user_id)
-        res.render("4_homepage_logged",templateVars);
-      } else {
-        res.render("2_register");
-      }
-    });
+        console.log(templateVars)
+        res.render("4_homepage_logged", templateVars);
+      })
+      .catch(err => console.log(err))
+  }
+});
+
+
+// GET registration page
+app.get("/register", (req, res) => {
+  if (req.session.user_id) {
+    const templateVars = {
+      user : req.session.user_id
+    }
+    console.log(req.session.user_id)
+    res.render("4_homepage_logged",templateVars);
+  } else {
+    res.render("2_register");
+  }
+});
 
 
     // HOA POST registration page
-  app.post("/register", (req,res) => {
-    const id = req.params.id;
-    req.session.user_id = req.body
-    const user = req.body
-    const query= {
-    text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
-    VALUES ($1, $2, $3,$4,$5,$6)
-    RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
-    };
+app.post("/register", (req,res) => {
+  const id = req.params.id;
+  req.session.user_id = req.body
+  const user = req.body
+  const query= {
+  text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
+  VALUES ($1, $2, $3,$4,$5,$6)
+  RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
+  };
 
-    db
-    .query(query)
-    .then(result => {
-    console.log(result.rows[0].id);
-      res.redirect("/")
-    })
-    .catch(err => console.log(err))
-  });
+  db
+  .query(query)
+  .then(result => {
+  console.log(result.rows[0].id);
+    res.redirect("/")
+  })
+  .catch(err => console.log(err))
+});
 
 app.post("/search", (req, res) => {
   const id = req.params.id;
@@ -251,3 +204,7 @@ app.post("/logout", (req,res) => {
     req.session = null
     res.redirect('/');
   });
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
