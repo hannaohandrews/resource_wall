@@ -1,13 +1,39 @@
-header {
-  height: 150px;
-  position: fixed;
-  width : 100%;
+@import "./variables";
+
+@mixin flexCenter(){
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
 }
 
-.logo{
-  height:50px;
-  width:100px;
-  margin: 1%;
+.navbar {
+  background-color: lighten($color:LightSeaGreen, $amount: 0);
+  height: 120px;
+  position: fixed;
+  width : 100%;
+  font-family: 'Assistant';
+  @include flexCenter();
+
+  .logo {
+    height:70px;
+    width:200px;
+    margin: 1%;
+
+  }
+
+  button {
+    font-family : 'Assistant';
+    background-color:$primaryBtn;
+    color: $textBtn;
+    font-weight: bold;
+  }
 }
+
+.notloggedIn{
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+}
+
 
 

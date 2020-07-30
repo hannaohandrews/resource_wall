@@ -1,12 +1,42 @@
-header {
-  height: 150px;
+.navbar {
+  background-color: lightseagreen;
+  height: 120px;
   position: fixed;
   width: 100%;
+  font-family: 'Assistant';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.logo {
-  height: 50px;
-  width: 100px;
+.navbar .logo {
+  height: 70px;
+  width: 200px;
   margin: 1%;
+}
+
+.navbar button {
+  font-family: 'Assistant';
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.notloggedIn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=nav.css.map */

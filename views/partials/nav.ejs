@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-
 <link rel="stylesheet" href="/styles/partials/nav.css" type="text/css" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@200;300;400;700&family=Fjalla+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@200;300;400;700&family=Fjalla+One&display=swap" rel="stylesheet">
 
-  <nav class="navbar">
-    <div>
-    <img class= 'logo' src="/images/logo.png" >
-    </div>
-    <main style="margin: 1em;">
-      <% if (user) { %>
+<nav class="navbar">
 
-      <form class="form-inline" action="/search/" method="POST">
-        <input type="text" id="search" name="search">
-        <button type='submit'>SEARCH</button>
-      </form>
+  <img class='logo' src="/images/logo.png">
 
-      <form class="form-inline" action="/users/profile/<%= user %>" method="GET">
-        <button type="submit" value="submit">EDIT PROFILE</button>
-      </form>
+  <% if (user) { %>
 
-      <form class="form-inline" action="/resources/new" method="GET">
-        <button type="submit" value="submit">ADD NEW</button>
-      </form>
+    <h3>USER ID:<%= user %></h3>
 
-      <h3>Logged in as:</h3>
-      <h3><%= user %></h3>
-      <form class="form-inline" action="/logout" method="POST">
-        <button type="submit" value="submit">Log Out</button>
-      </form>
-
+    <div class='myresources_button'>
       <form class="form-inline" action="/users/login/<%= user %>" method="GET">
         <button type="submit" value="submit">MY RESOURCES</button>
       </form>
+    </div>
 
-      <%} else {%>
-      <form class="form-inline" action="/login" method="POST">
-        <button><a href="/login">Login</a></button>
+  <div class='search_bar'>
+    <form class="form-inline" action="/search/" method="POST">
+      <input type="text" id="search" name="search">
+      <button type="submit" class="btn btn-success">SEARCH</button>
+    </form>
+  </div>
+
+    <div class='addnew_button'>
+      <form class="form-inline" action="/resources/new" method="GET">
+        <button type="submit" value="submit">ADD NEW RESOURCES</button>
       </form>
-      <a href="register" class="btn btn-primary">Register</a>
-      <% } %>
+    </div>
 
-    </main>
-  </nav>
+  <div class='editProfile_button'>
+    <form class="form-inline" action="/users/profile/<%= user %>" method="GET">
+      <button type="submit" value="submit">EDIT PROFILE</button>
+    </form>
+  </div>
 
-</header>
+  <div class='logout_button'></div>
+  <form class="form-inline" action="/logout" method="POST">
+  <button type="submit" value="submit">Log Out</button>
+    </form>
+  </div>
+
+  <%} else {%>
+<body class = notLoggedIn>
+  <div class='login_button'>
+    <form class="form-inline" action="/login" method="POST">
+      <button><a href="/register">REGISTER</a></button>
+    </form>
+  </div>
+
+  <div class='register_button'>
+    <button><a href="/users/login/1">LOGIN</a>
+    </button>
+    <% } %>
+  </div>
+
+</body>
+
+</nav>
