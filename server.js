@@ -58,7 +58,7 @@ app.use("/categories", categoriesRoutes(db));
 app.get("/register", (req, res) => {
   if (req.session.user_id) {
     const templateVars = {
-      user : req.session.user_id
+      user : req.session.user_id,
     }
     res.render("4_homepage_logged",templateVars);
   } else {
@@ -69,9 +69,8 @@ app.get("/register", (req, res) => {
     // HOA POST registration page
 
 app.post("/register", (req,res) => {
-
+  req.session.user_id = req.body.id
   const user = req.body
-  console.log(user)
 
   const query= {
   text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
@@ -82,13 +81,20 @@ app.post("/register", (req,res) => {
    db
   .query(query)
   .then(result => {
-    console.log(result.rows[0].id);
-    // console.log(users.row.id);
-    // req.session = users.row.id;
-    res.redirect("/")
+
+    // console.log('result',result)
+
+    // const templateVars = {
+    //   resource : res.rows,
+    //   user : req.session.user_id,
+    //   id : req.params.id
+    // }
+    // console.log('templateVars',templateVars)
+    // res.redirect("/users",templaveVars);
+    res.redirect('/')
+
   })
   .catch(err => console.log(err))
-
 });
 
 

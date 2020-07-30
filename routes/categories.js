@@ -1,5 +1,5 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (db) => {
 
@@ -7,9 +7,9 @@ module.exports = (db) => {
     const id = req.params.id;
     if (!req.session.user_id) {
       const templateVars = {
-        user : req.session.user_id
+        user: req.session.user_id
       }
-      res.redirect("/",templateVars);
+      res.redirect("/", templateVars);
       return;
     } else {
       const query = {
@@ -21,21 +21,19 @@ module.exports = (db) => {
         GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
         values: [id]
       };
-        db
-          .query(query)
-          .then(result => {
-            const templateVars = {
-              resource: result.rows,
-              user : req.session.user_id
-            }
-            res.render("8_categories", templateVars);
-          })
-          .catch(err => console.log(err))
+      db
+        .query(query)
+        .then(result => {
+          const templateVars = {
+            resource: result.rows,
+            user: req.session.user_id
+          }
+          res.render("8_categories", templateVars);
+        })
+        .catch(err => console.log(err))
     }
   });
+
   return router;
+
 };
-
-
-
-

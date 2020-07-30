@@ -4,6 +4,9 @@
   <head>
     <title>Home Page</title>
 
+    <%- include('partials/nav') %>
+    <%- include('partials/categories') %>
+
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -13,15 +16,13 @@
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
     <script type="text/javascript" src="/scripts/like.js"></script>
   </head>
-  <%- include('partials/nav') %>
+
   <body>
     <h1>HOMEPAGE_LOGGED_IN</h1>
-    <%- include('partials/categories') %>
     <main>
     <% for (let item in resource) { %>
       <header>
       <div class ="resource-image">
-
         <a href= <%= resource[item].resource_url %> >
           <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
         </a>

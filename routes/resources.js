@@ -52,7 +52,7 @@ module.exports = (db) => {
       const templateVars = {
         user : req.session.user_id
       }
-      res.redirect("/",templateVars);
+      res.redirect("/");
     } else {
       const promiseOne = db.query('SELECT resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
 
@@ -66,11 +66,13 @@ module.exports = (db) => {
       // db
       // .query(query)
       .then(result => {
+
         const templateVars = {
           resource: result[0].rows[0],
           categories: result[1].rows,
           comments: result[2].rows,
-          user : req.session.user_id
+          user : req.session.user_id,
+          id : req.params.id
         }
         console.log(templateVars)
         res.render("5_url_desc", templateVars);
@@ -161,7 +163,7 @@ module.exports = (db) => {
 
     .then(result =>{
 
-    res.redirect('users/login/:id')
+    res.redirect('/')
     console.log('redirected')
     })
     .catch(err => console.log(err))
@@ -169,4 +171,5 @@ module.exports = (db) => {
   });
 
   return router;
+
 };
