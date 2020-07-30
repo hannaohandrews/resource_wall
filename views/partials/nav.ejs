@@ -1,28 +1,35 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success">
- </a>C&H</a>
-
+    </a>C&H</a>
 
     </div>
     <main style="margin: 1em;">
       <% if (user) { %>
-        <form class="form-inline" action="/search/" method="POST">
-          <input type="text" id="search" name="search">
-          <button type='submit'>SEARCH</button>
-      </form>
-       <h3>Logged in as:</h3>
-       <h3><%= user %></h3>
-       <form class="form-inline" action="/logout" method="POST">
-           <button type="submit" value="submit">Log Out</button>
-       </form>
-      <%} else {%>
-       <form class="form-inline" action="/login" method="POST">
-           <button><a href="/login">Login</a></button>
-       </form>
-       <a href="register" class="btn btn-primary">Register</a>
-       <% } %>
 
-     </main>
-    </nav>
+      <form class="form-inline" action="/search/" method="POST">
+        <input type="text" id="search" name="search">
+        <button type='submit'>SEARCH</button>
+      </form>
+
+      <h3>Logged in as:</h3>
+      <h3><%= user %></h3>
+      <form class="form-inline" action="/logout" method="POST">
+        <button type="submit" value="submit">Log Out</button>
+      </form>
+
+      <form class="form-inline" action="/users/profile/:id" method="GET">
+        <button type="submit" value="submit">Edit</button>
+      </form>
+
+
+      <%} else {%>
+      <form class="form-inline" action="/login" method="POST">
+        <button><a href="/login">Login</a></button>
+      </form>
+      <a href="register" class="btn btn-primary">Register</a>
+      <% } %>
+
+    </main>
+  </nav>
 
 </header>

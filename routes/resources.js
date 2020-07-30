@@ -52,7 +52,7 @@ module.exports = (db) => {
       const templateVars = {
         user : req.session.user_id
       }
-      res.redirect("/",templateVars);
+      res.redirect("/");
     } else {
       const promiseOne = db.query('SELECT resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
 
