@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success">
+  <nav class="navbar">
     </a>C&H</a>
 
     </div>
@@ -11,16 +11,23 @@
         <button type='submit'>SEARCH</button>
       </form>
 
+      <form class="form-inline" action="/users/profile/<%= user %>" method="GET">
+        <button type="submit" value="submit">EDIT PROFILE</button>
+      </form>
+
+      <form class="form-inline" action="/resources/new" method="GET">
+        <button type="submit" value="submit">ADD NEW</button>
+      </form>
+
       <h3>Logged in as:</h3>
       <h3><%= user %></h3>
       <form class="form-inline" action="/logout" method="POST">
         <button type="submit" value="submit">Log Out</button>
       </form>
 
-      <form class="form-inline" action="/users/profile/:id" method="GET">
-        <button type="submit" value="submit">Edit</button>
+      <form class="form-inline" action="/users/login/<%= user %>" method="GET">
+        <button type="submit" value="submit">MY RESOURCES</button>
       </form>
-
 
       <%} else {%>
       <form class="form-inline" action="/login" method="POST">
