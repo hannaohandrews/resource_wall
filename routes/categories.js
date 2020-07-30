@@ -13,7 +13,12 @@ module.exports = (db) => {
       return;
     } else {
       const query = {
-        text: `SELECT * FROM resources JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id WHERE category_id = $1`,
+        text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
+        FROM resources
+        JOIN users ON resources.user_id = users.id
+        JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id
+        WHERE category_id = $1
+        GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
         values: [id]
       };
         db
@@ -28,8 +33,33 @@ module.exports = (db) => {
           .catch(err => console.log(err))
     }
   });
+
+
+  router.post("/:id", (req, res) => {
+    console.log('reqrow',req.rows)
+    console.log('reqsess',req.session.user_id)
+    console.log('resparams',req.params.id)
+
+    const templateVars = {
+      resource: res.rows,
+      user : req.session.user_id,
+      id : req.params.id
+    }
+
+    res.redirect("/:id");
+
+  });
+
   return router;
+
 };
+
+
+
+
+
+
+
 
 
 
