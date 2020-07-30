@@ -1,29 +1,31 @@
 
-// $(function () {
-//   $('.like').click(function () { likeFunction(this); });
-// });
+$(function () {
+  $('.like').click(function () { likeFunction(this); });
+});
 
 
-// function likeFunction(caller) {
-//   var postId = caller.parentElement.getAttribute('postid');
-//   $.ajax({
-//       type: "POST",
-//       url: "rate.php",
-//       data: 'Action=LIKE&PostID=' + resource[item].id,
-//       success: function () {}
-//   });
-// }
+function likeFunction(caller) {
+  var postId = caller.parentElement.getAttribute('postid');
+  var likeStatus = caller.parentElement.getAttribute('likestatus');
+  $.ajax({
+    method: "POST",
+    url: `/resources/${postId}/like`,
+    data: `likeStatus=${likeStatus}`,
+    xhrFields: {withCredentials: true}
+  }).done(() => {
+    console.log("success")
+  });;
 
-
-// if (resource[item].like === true) {
-//   UPDATE likes SET active = false WHERE user_id = $1 [req.params.id]
-//   AND resource_id = ;
-// } else {
-//   UPDATE likes SET active = true WHERE user_id =
-//   AND resource_id = ;
-// }
-
-
-
-
-
+  // $.ajax({
+  //     type: "POST",
+  //     url: `http://localhost:8080/resources/${postId}/like`,
+  //     data: `likeStatus=${likeStatus}`,
+  //     xhrFields: {withCredentials: true},
+  //     success: function () {
+  //       console.log("success")
+  //       // need to update the html properties of the button
+  //       // define style for each state
+  //       // put the button in that state
+  //     }
+  // });
+}

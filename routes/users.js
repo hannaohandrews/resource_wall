@@ -12,6 +12,7 @@ module.exports = (db) => {
 
   // CJ user home page with all resources
   router.get ("/login/:id", (req, res) => {
+    console.log(req.session);
     req.session.user_id = req.params.id;
     const id = req.params.id;
       const query = {
@@ -30,7 +31,7 @@ module.exports = (db) => {
           resource: result.rows,
           user : req.session.user_id
         }
-        console.log(templateVars)
+        console.log("=====", req.session.user_id)
         res.render("4_homepage_logged", templateVars);
       })
       .catch(err => console.log(err))

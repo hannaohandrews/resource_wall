@@ -26,18 +26,6 @@ module.exports = (db) => {
       }
       res.redirect("/",templateVars);
     } else {
-      // const query = {
-      //   text: `
-      //   SELECT resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, (SELECT title FROM categories AS category, comments.comment_text AS comments
-      //   FROM resources
-      //   JOIN users ON resources.user_id = users.id
-      //   JOIN resource_categories ON resource_categories.resource_id = resources.id JOIN categories ON category_id = categories.id
-      //   JOIN comments ON comments.resource_id = resources.id
-      //   WHERE resources.id = $1
-      //   GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, categories.title`,
-      //   values: [id]
-      // }
-
       const promiseOne = db.query('SELECT resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
 
       const promiseTwo = db.query('SELECT categories.title AS category FROM categories JOIN resource_categories ON category_id = categories.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
@@ -88,6 +76,31 @@ module.exports = (db) => {
     .catch(err => console.log(err))
       }
     });
+
+  router.post("/:id/like", (res,req) => {
+    if (!req.session.user_id) {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
+      return;
+    } else {
+      const likeStatus = req.body.likeStatus;
+      let queryText;
+      if (likeStatus === true) {
+        queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2';
+      } else {
+        queryText = 'UPDATE likes SET active = true WHERE user_id = $1 AND resource_id = $2';
+      }
+      const query = {
+        text: queryText,
+        values: [req.session.user_id, req.params]
+      }
+      db.query(query)
+      .then(() => res.send(200) )
+      .catch(err => console.log(err))
+    }
+  });
 
   return router;
 };

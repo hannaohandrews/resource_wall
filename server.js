@@ -32,6 +32,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 app.use(cookieSession({
   name: 'session',
+  cookie: {maxAge: 36000000, httpOnly: false},
   keys: ['thisismysuperlongstringtouseforcookiesessions', 'thisisasecondlongstring']
 }));
 // add req.session.user_id = user.id; to app.post login route
@@ -49,15 +50,6 @@ app.use("/users", usersRoutes(db));
 app.use("/resources", resourcesRoutes(db));
 app.use("/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
-
-// homepage not logged in
-// app.get("/", (req, res) => {
-//   if (!req.session.user_id) {
-//     res.render("1_homepage_nl");
-//   } else {
-//     res.render("4_homepage_logged");
-//   }
-// });
 
 // GET registration page
 app.get("/register", (req, res) => {
@@ -114,8 +106,33 @@ app.listen(PORT, () => {
   });
 
 
+  // app.post("/users/login/:id/resources/:resource_id/like", (res,req) => {
+  //   if (!req.session.user_id) {
+  //     const templateVars = {
+  //       user : req.session.user_id
+  //     }
+  //     res.redirect("/",templateVars);
+  //     return;
+  //   } else {
+  //     const likeStatus = req.body.likeStatus;
+  //     let queryText;
+  //     if (likeStatus === true) {
+  //       queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2';
+  //     } else {
+  //       queryText = 'UPDATE likes SET active = true WHERE user_id = $1 AND resource_id = $2';
+  //     }
+  //     const query = {
+  //       text: queryText,
+  //       values: [req.session.user_id, req.params]
+  //     }
+  //     db.query(query)
+  //     .then(() => res.send(200) )
+  //     .catch(err => console.log(err))
+  //   }
+  // });
+
 //  GET LOGIN PAGE
-  app.get(' /login/:id', (req, res) => {
+  app.get('/login/:id', (req, res) => {
   req.session.user_id = req.params.id;
   res.redirect('/');
 });
@@ -141,18 +158,18 @@ app.listen(PORT, () => {
     const user = req.body
     const query= {
     text:`INSERT INTO users (username, first_name, last_name, email, password, profile_image_url)
-  VALUES ($1, $2, $3,$4,$5,$6)
-  RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
-  };
+    VALUES ($1, $2, $3,$4,$5,$6)
+    RETURNING *`, values : [user.username, user.first_name, user.last_name,user.email, user.password, user.profile_image_url]
+    };
 
-   db
-  .query(query)
-  .then(result => {
-  console.log(result.rows[0].id);
-    res.redirect("/")
-  })
-  .catch(err => console.log(err))
-});
+    db
+    .query(query)
+    .then(result => {
+    console.log(result.rows[0].id);
+      res.redirect("/")
+    })
+    .catch(err => console.log(err))
+  });
 
 app.post("/search", (req, res) => {
   const id = req.params.id;
