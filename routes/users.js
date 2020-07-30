@@ -11,7 +11,6 @@ const router  = express.Router();
 module.exports = (db) => {
 
 
-
   // CJ user home page with all resources
   router.get ("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
@@ -38,9 +37,8 @@ module.exports = (db) => {
       .catch(err => console.log(err))
   });
 
-  router.get("/", (req,res) =>{
-    req.session.user_id = req.params.id;
-    res.redirect("/login/1")
+  router.get("/", (req,res) => {
+    res.render('homepage_logged_empty')
   }
   )
 
@@ -108,6 +106,12 @@ module.exports = (db) => {
     .catch(err => console.log(err))
     }
   });
+
+
+
+
+
+
 
   return router;
 };
