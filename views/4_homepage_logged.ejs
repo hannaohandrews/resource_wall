@@ -13,6 +13,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/like.js"></script>
   </head>
 
   <body>
@@ -31,8 +32,10 @@
         <p><%= resource[item].title %></p>
         <p><%= resource[item].rating %></p>
         <p><%= resource[item].username %></p>
-        <!-- NEED TO ADD LIKE POST LINK HERE -->
-        <!-- <form method="POST" action="/"><button>Delete</button></form> -->
+
+        <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+          <input type="button" class='like' value="Like" /> </input>
+      </div>
     </div>
   </footer>
     <% } %>

@@ -54,24 +54,29 @@ module.exports = (db) => {
       }
       res.redirect("/",templateVars);
     } else {
-      const query = {
-        text: `
-        SELECT resources.id,resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, resources.user_id AS user_id
-        FROM resources WHERE id = $1
-        GROUP BY resources.id,resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id`,
-        values: [id]
-      }
-      db
-      .query(query)
+      const promiseOne = db.query('SELECT resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username      FROM resources JOIN users ON resources.user_id = users.id WHERE resources.id = $1 GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username', [id]);
+
+      const promiseTwo = db.query('SELECT categories.title AS category FROM categories JOIN resource_categories ON category_id = categories.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
+
+      const promiseThree = db.query('SELECT comment_text AS comments FROM comments JOIN users ON user_id = users.id JOIN resources ON resource_id = resources.id WHERE resources.id = $1', [id]);
+
+      const promises = [promiseOne, promiseTwo, promiseThree];
+      Promise.all(promises)
+      // .then(() => console.log('all done'));
+      // db
+      // .query(query)
       .then(result => {
 
         const templateVars = {
-          resource : result.rows[0],
+          resource: result[0].rows[0],
+          categories: result[1].rows,
+          comments: result[2].rows,
           user : req.session.user_id,
           id : req.params.id
         }
-        console.log('templateVars',templateVars)
+        console.log(templateVars)
         res.render("5_url_desc", templateVars);
+        //console.log("result:", result)
       })
       .catch(err => console.log(err))
     }
@@ -138,6 +143,31 @@ module.exports = (db) => {
     res.render('4_homepages_logged',templateVars);
     }
   })
+
+  router.post("/:id/like", (res,req) => {
+    if (!req.session.user_id) {
+      const templateVars = {
+        user : req.session.user_id
+      }
+      res.redirect("/",templateVars);
+      return;
+    } else {
+      const likeStatus = req.body.likeStatus;
+      let queryText;
+      if (likeStatus === true) {
+        queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2';
+      } else {
+        queryText = 'UPDATE likes SET active = true WHERE user_id = $1 AND resource_id = $2';
+      }
+      const query = {
+        text: queryText,
+        values: [req.session.user_id, req.params]
+      }
+      db.query(query)
+      .then(() => res.send(200) )
+      .catch(err => console.log(err))
+    }
+  });
 
   return router;
 
