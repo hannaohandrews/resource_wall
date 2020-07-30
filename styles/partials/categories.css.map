@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAQA,AAAA,WAAW,CAAC;EALV,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,aAAa;EAK9B,UAAU,EAAE,KAAK;CAClB",
     "sources": [
-        "categories.scss"
+        "categories.scss",
+        "_variables.scss"
     ],
     "names": [],
     "file": "categories.css"

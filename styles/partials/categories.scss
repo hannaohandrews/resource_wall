@@ -1,0 +1,12 @@
+@import "./variables";
+
+@mixin flexCenter(){
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.categories {
+  @include flexCenter();
+  margin-top: 500px;
+}
