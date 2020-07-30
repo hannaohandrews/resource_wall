@@ -51,10 +51,28 @@ app.use("/resources", resourcesRoutes(db));
 app.use("/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
+// homepage not logged in
+app.get("/", (req, res) => {
+  if (!req.session.user_id) {
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.render("1_homepage_nl",templateVars);
+  } else {
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.render("4_homepage_logged",templateVars);
+  }
+});
+
 // GET registration page
 app.get("/register", (req, res) => {
   if (req.session.user_id) {
-    res.render("4_homepage_logged");
+    const templateVars = {
+      user : req.session.user_id
+    }
+    res.render("4_homepage_logged",templateVars);
   } else {
     res.render("2_register");
   }
@@ -98,10 +116,28 @@ app.listen(PORT, () => {
       }
       res.render("1_homepage_nl",templateVars);
     } else {
-      const templateVars = {
-        user : req.session.user_id
-      }
-      res.render("4_homepage_logged",templateVars)
+      req.session.user_id = req.params.id;
+      const id = req.params.id;
+        const query = {
+          text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
+          FROM resources
+          JOIN users ON resources.user_id = users.id
+          JOIN likes ON likes.user_id = users.id
+          WHERE likes.active = TRUE OR resources.user_id = $1
+          GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
+          values: [id]
+        }
+        db
+        .query(query)
+        .then(result => {
+          const templateVars = {
+            resource: result.rows,
+            user : req.session.user_id
+          }
+          console.log(templateVars)
+          res.render("4_homepage_logged", templateVars);
+        })
+        .catch(err => console.log(err))
     }
   });
 

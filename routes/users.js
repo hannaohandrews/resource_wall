@@ -95,12 +95,9 @@ module.exports = (db) => {
     }
     db
     .query(query)
-    .then(() => {
-      const templateVars = {
-        user : req.session.user_id
-      }
-      res.redirect(`/users/login/${id}`, 200);
-    })
+    .then(result =>
+      result.redirect("/")
+    )
     .catch(err => console.log(err))
     }
   });
