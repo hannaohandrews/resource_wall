@@ -64,11 +64,13 @@ module.exports = (db) => {
       db
       .query(query)
       .then(result => {
+
         const templateVars = {
-          resource: result.rows[0],
+          resource : result.rows[0],
           user : req.session.user_id,
           id : req.params.id
         }
+        console.log('templateVars',templateVars)
         res.render("5_url_desc", templateVars);
       })
       .catch(err => console.log(err))
@@ -121,14 +123,24 @@ module.exports = (db) => {
 
     .then(result =>{
 
-    res.redirect('users/login/:id')
+    res.redirect('/')
     console.log('redirected')
     })
     .catch(err => console.log(err))
     }
   });
 
-
+  router.get("/", (req,res) => {
+    if (req.session.user_id) {
+      const templateVars = {
+        user : req.session.user_id
+      }
+    res.render('4_homepages_logged',templateVars);
+    }
+  })
 
   return router;
+
+
+
 };
