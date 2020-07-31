@@ -5,10 +5,16 @@
   min-width: 1200px;
   max-width: 1400px;
   margin: 0 auto;
-  
-
 }
 .page-detail{
   flex-grow: 4;
+}
 
+.main-grid {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.like {
+  background-color: rgb(255, 217, 0);
 }

@@ -16,4 +16,16 @@
       -ms-flex-positive: 4;
           flex-grow: 4;
 }
+
+.main-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.like {
+  background-color: #ffd900;
+}
 /*# sourceMappingURL=4_homepage_logged.css.map */

@@ -22,8 +22,8 @@ $(document).ready(function() {
       let newStatus = (newCall === 'true') ? 'false' : 'true'
       console.log("newStatus:", newStatus)
       $(caller.parentElement).attr('likestatus',  String(newStatus))
-      $(caller).val(newStatus)
-      // $(caller).toggleClass(red)
+      // $(caller).val(newStatus)
+       $(caller).toggleClass('like')
       console.log("success")
     });;
   }
