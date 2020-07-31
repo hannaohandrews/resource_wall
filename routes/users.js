@@ -129,19 +129,24 @@ module.exports = (db) => {
       console.log(user)
       const query = {
         text: `UPDATE users
-    SET username = $1,
-    first_name = $2,
-    last_name = $3,
-    email = $4,
-    profile_image_url = $5
-    WHERE id = $6
-    RETURNING *`, values : [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
-    }
-    db
-    .query(query)
-    .then(result =>
-      res.redirect("/")
-    )
+      SET username = $1,
+      first_name = $2,
+      last_name = $3,
+      email = $4,
+      profile_image_url = $5
+      WHERE id = $6
+      RETURNING *`, values : [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
+      }
+      db
+      .query(query)
+      .then(result => {
+        const templateVars = {
+          users: result.rows[0],
+          user: req.session.user_id
+        }
+        console.log("result", result);
+        res.render("6_profile", templateVars);
+      })
     .catch(err => console.log(err))
     }
   });

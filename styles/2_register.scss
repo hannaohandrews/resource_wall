@@ -4,10 +4,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
   form {
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     .form-group {
       flex-direction: row;
       justify-content: space-evenly;
@@ -21,4 +24,6 @@
       }
     }
   }
+
 }
+
