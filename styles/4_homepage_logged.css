@@ -37,12 +37,8 @@
 .main-grid .resources-container {
   padding: 20px;
   border: 1px dashed #044347;
-  margin: 50px;
+  margin: 20px;
   margin-bottom: 30px;
-}
-
-.main-grid .resources-container .like {
-  background-color: #ffee00;
 }
 
 .title {

@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
-
-    <!-- <%- include('partials/nav') %>
-    <%- include('partials/categories') %> -->
-
-    <link rel="stylesheet" href="/styles/4_homepage_logged.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
 <head>
   <%- include('partials/head') %>
@@ -18,6 +8,7 @@
   <header>
     <%- include('partials/nav') %>
   </header>
+
   <main class='main-container'>
 
     <div class=box1>
@@ -31,6 +22,7 @@
       </div>
 
       <div class='main-grid'>
+
         <% for (let item in resource) { %>
 
         <div class='resources-container'>

@@ -1,32 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('partials/head') %>
-  </head>
-  <%- include('partials/nav') %>
-  <%- include('partials/categories') %>
-  <body>
-    <main>
-      <% for (let item in resource) { %>
-        <header>
-        <div class ="resource-image">
 
-          <a href= <%= resource[item].resource_url %> >
-            <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
-          </a>
-        </div>
-      </header>
-      <footer>
-        <div class="resource-details">
-          <p><%= resource[item].title %></p>
-          <p><%= resource[item].rating %></p>
-          <p><%= resource[item].username %></p>
-          <!-- NEED TO ADD LIKE POST LINK HERE -->
-          <!-- <form method="POST" action="/"><button>Delete</button></form> -->
+<head>
+  <%- include('partials/head') %>
+</head>
+
+<body class='page_divider'>
+  <header>
+    <%- include('partials/nav') %>
+  </header>
+
+  <main class='main-container2'>
+
+    <div class=box1>
+      <%- include('partials/categories') %>
+    </div>
+
+    <div class='page-detail'>
+
+      <div class='main-grid'>
+        <% for (let item in resource) { %>
+
+          <div class = 'individual-grid'>
+        <header>
+          <div class="resource-image">
+            <a href=<%= resource[item].resource_url %>>
+              <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
+            </a>
+          </div>
+        </header>
+
+        <footer>
+          <div class="resource-details">
+            <p></p><%= resource[item].title %></p>
+            <p>Rating : <%= resource[item].rating %></p>
+            <p>Username : <%= resource[item].username %></p>
+          </div>
+        </footer>
       </div>
-    </footer>
-      <% } %>
-      </main>
-  </body>
-</html>
+        <% } %>
+
+      </div>
+    </div>
+  </main>
+</body>
