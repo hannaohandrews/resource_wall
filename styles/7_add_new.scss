@@ -29,3 +29,22 @@ h1 {
     }
   }
 }
+.resources-container {
+
+  padding:20px;
+  border: 1px dashed rgb(4, 67, 71);
+  margin: 50px;
+  margin-bottom: 30px;
+    .form-group {
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: space-between;
+      padding: 20px;
+      label {
+        padding-right: 10px;
+      }
+      button {
+        background-color: lightseagreen;
+      }
+}
+}

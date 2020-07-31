@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="/styles/5_url_desc.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
     <%- include('partials/head') %>
   </head>
+  <body class='page_divider'>
+    <header>
+      <%- include('partials/nav') %>
+    </header>
+    <main class='main-container'>
 
+      <div class=box1>
+        <%- include('partials/categories') %>
+      </div>
 
-  </head>
-  <%- include('partials/nav') %>
-  <%- include('partials/categories') %>
-  <body>
-    <h1>URL </h1>
-    <%- include('partials/categories') %>
-    <main>
+      <div class='page-detail'>
+
+        <div class='title'>
+          <h2>RESOURCE DETAILS</h2>
+        </div>
 
         <header>
-          <div class="resource-details">
+          <div class='resources-container'>
             <p><%= resource.title %></p>
             <p><%= resource.username %></p>
             <p><%= resource.rating %></p>
@@ -35,7 +46,7 @@
           <p><%= resource.description %></p>
         </div>
       </footer>
-
+      <div class='resources-container'>
     <form class="form-resource" action="/resources/<%= id %>" method="POST">
       <div class="form-group mb-2">
         <label for="category">ADD CATEGORY:</label>
@@ -47,7 +58,8 @@
         <button type='submit'>SUBMIT</button>
       </div>
     </form>
-    <div class="old-comments">
+    </div>
+    <div class='resources-container'>
     <label>OLD COMMENTS:</label>
     <% for (let comment of comments) { %>
 

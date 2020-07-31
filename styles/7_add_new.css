@@ -51,4 +51,32 @@ h1 {
 .new-form form .form-group button {
   background-color: lightseagreen;
 }
+
+.resources-container {
+  padding: 20px;
+  border: 1px dashed #044347;
+  margin: 50px;
+  margin-bottom: 30px;
+}
+
+.resources-container .form-group {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
+  padding: 20px;
+}
+
+.resources-container .form-group label {
+  padding-right: 10px;
+}
+
+.resources-container .form-group button {
+  background-color: lightseagreen;
+}
 /*# sourceMappingURL=7_add_new.css.map */

@@ -5,50 +5,59 @@
     <link rel="stylesheet" href="/styles/6_profile.css" type="text/css" />
     <%- include('partials/head') %>
   </head>
-  <%- include('partials/nav') %>
-  <main class="page-divider"></main>
-  <div class="profile-title">
-  <h1 >PROFILE</h1>
-  </div>
+
+  <body class="page-divider">
+
+  <header>
+    <%- include('partials/nav') %>
+  </header>
+  <main class='main-container'>
+
+    <div class=box1>
+      <%- include('partials/categories') %>
+    </div>
+
+    <div class="page-detail">
+    <div class="title">
+      <h2>PROFILE</h2>
+    </div>
 
 
-  <body class="body-columns">
-    <%- include('partials/categories') %>
-    <section class="inner-body">
+    <div class="resources-container">
+      <img src=<%= users.profile_image_url %> style="width:300px;">
 
-    <img src=<%= users.profile_image_url %> style="width:300px;">
     <table class="table">
     <form class="form-inline" action="/users/profile/:id" method="POST">
-      <div class="form-group">
-        <tbody class="profile-info">
-          <tr>
+      <div class="profile-info">
+          <div class="table-row">
             <label for="username">USERNAME:</label>
             <input type="text" id="username" name="username" value="<%= users.username %>">
-          </tr>
-          <tr>
+          </div class="table-row">
+          <div class="table-row">
             <label for="first_name">FIRST NAME:</label>
             <input type="text" id="first_name" name="first_name" value="<%= users.first_name %>">
-          </tr>
-          <tr>
+          </div class="table-row">
+          <div class="table-row">
             <label for="last_name">LAST NAME:</label>
             <input type="text" id="last_name" name="last_name" value="<%= users.last_name %>">
-          </tr>
-          <tr>
+          </div class="table-row">
+          <div class="table-row">
             <label for="email">EMAIL:</label>
             <input type="email" id="email" name="email" value="<%= users.email %>">
-          </tr>
-          <tr>
+          </div class="table-row">
+          <div class="table-row">
             <label for="profile_image_url">PHOTO:</label>
             <input type="url" id="profile_image_url" name="profile_image_url" value="<%= users.profile_image_url %>">
-          </tr>
-          <tr>
+          </div class="table-row">
+          <div class="table-row">
         <button type='submit'>UPDATE</button>
-        </tr>
-      </tbody>
+        </div class="table-row">
       </table>
+    </div>
        </div>
     </form>
-  </section>
+
+    </div>
   </main>
   </body>
 </html>
