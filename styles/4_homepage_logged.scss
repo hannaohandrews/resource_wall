@@ -20,12 +20,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
   font:'arial';
 
   header{
-  margin: 50px;
+  margin: 15px;
   }
 
+  .individual-grid {
+    display:flex;
+    flex-direction: column;
+    border: 1px dashed rgb(4, 67, 71);
+    margin: 20px;
+  }
   .resources-container {
     padding:20px;
     border: 1px dashed rgb(4, 67, 71);
@@ -46,4 +54,11 @@ color:rgb(4, 67, 71);
 display: flex;
 align-items: center;
 justify-content:center;
+}
+
+.resource-details {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+
 }
