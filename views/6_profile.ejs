@@ -2,18 +2,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="/styles/6_profile.css" type="text/css" />
     <%- include('partials/head') %>
   </head>
   <%- include('partials/nav') %>
-  <%- include('partials/categories') %>
+  <main class="page-divider"></main>
+  <div class="profile-title">
+  <h1 >PROFILE</h1>
+  </div>
 
-  <body>
-    <h1>PROFILE</h1>
+
+  <body class="body-columns">
+    <%- include('partials/categories') %>
+    <section class="inner-body">
+
     <img src=<%= users.profile_image_url %> style="width:300px;">
     <table class="table">
     <form class="form-inline" action="/users/profile/:id" method="POST">
-      <div class="form-group mb-2">
-        <tbody>
+      <div class="form-group">
+        <tbody class="profile-info">
           <tr>
             <label for="username">USERNAME:</label>
             <input type="text" id="username" name="username" value="<%= users.username %>">
@@ -41,5 +48,7 @@
       </table>
        </div>
     </form>
+  </section>
+  </main>
   </body>
 </html>

@@ -1,0 +1,33 @@
+
+
+.page-divider {
+  display:flex;
+  justify-content: space-between;
+  padding-top:120px;
+  min-width: 1200px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.profile-title {
+  margin-left: 250px;
+  border-color: lightseagreen;
+  border-width: 2px;
+}
+.body-columns{
+  display: flex;
+  flex-direction: column;
+}
+.inner-body{
+  margin-left: 250px;
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+
+    tr {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

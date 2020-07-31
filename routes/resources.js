@@ -35,15 +35,69 @@ module.exports = (db) => {
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *`, values : [resource.title, resource.url, resource.description, resource.resource_image_url,resource.rating, user]
     }
+    // attempt to add all info to receive back for sending to url desc page
+    // const promiseOne = db.query (
+    //   'INSERT INTO resources (title, resource_url, description, resource_image_url, rating, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',[resource.title, resource.url, resource.description, resource.resource_image_url,resource.rating, user]);
+
+
+    //  const promiseTwo = db.query (
+    //  'INSERT INTO resource_categories(category_id, resource_id) VALUES ($1,$2)',
+    //  [resource.category, resource_id]',
+    //  [rating, user_id,resource_id]);
+
+    //  Promise.all(promises)
+
     db
     .query(query)
-    .then(result =>
-      res.redirect("/")
-    )
+    .then(result => {
+      const templateVars = {
+        // resource: result.rows,
+        // categories: [resource.category],
+        user: req.session.user_id
+      }
+      console.log("templateVars", templateVars);
+      res.redirect("./");
+    })
+    // .then(result =>
+    //   res.redirect("/")
+    // )
     .catch(err => console.log(err))
       }
     });
 
+
+    router.get("/", (req, res) => {
+      console.log(req.session.user_id);
+      if (!req.session.user_id) {
+        const templateVars = {
+          user : req.session.user_id
+        }
+        res.render("1_homepage_nl",templateVars);
+      } else {
+        req.session.user_id = req.params.id;
+        const id = req.params.id;
+          const query = {
+            text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+            FROM resources
+            JOIN users ON resources.user_id = users.id
+            JOIN likes ON likes.user_id = users.id
+            WHERE likes.active = TRUE OR resources.user_id = $1
+            GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
+            values: [id]
+          }
+          db
+          .query(query)
+          .then(result => {
+            const templateVars = {
+              resource: result.rows,
+              user : req.session.user_id
+            }
+            console.log(templateVars)
+            res.render("4_homepage_logged", templateVars);
+          })
+          .catch(err => console.log(err))
+      }
+    });
 
   // CJ resource url page GET
   router.get("/:id", (req,res) => {
@@ -84,38 +138,7 @@ module.exports = (db) => {
 
 
 
-  router.get("/", (req, res) => {
-    console.log(req.session.user_id);
-    if (!req.session.user_id) {
-      const templateVars = {
-        user : req.session.user_id
-      }
-      res.render("1_homepage_nl",templateVars);
-    } else {
-      req.session.user_id = req.params.id;
-      const id = req.params.id;
-        const query = {
-          text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
-          FROM resources
-          JOIN users ON resources.user_id = users.id
-          JOIN likes ON likes.user_id = users.id
-          WHERE likes.active = TRUE OR resources.user_id = $1
-          GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
-          values: [id]
-        }
-        db
-        .query(query)
-        .then(result => {
-          const templateVars = {
-            resource: result.rows,
-            user : req.session.user_id
-          }
-          console.log(templateVars)
-          res.render("4_homepage_logged", templateVars);
-        })
-        .catch(err => console.log(err))
-    }
-  });
+
 
   // HOA resource url page POST
   router.post("/:id", (req,res) => {
