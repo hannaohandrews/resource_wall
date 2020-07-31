@@ -56,7 +56,7 @@ module.exports = (db) => {
         user: req.session.user_id
       }
       console.log("templateVars", templateVars);
-      res.redirect("./");
+      res.redirect(`../users/login/${user}`);
     })
     // .then(result =>
     //   res.redirect("/")
@@ -183,12 +183,19 @@ module.exports = (db) => {
     }
 
     Promise.all(promises)
-
-    .then(result =>{
-
-    res.redirect('/')
-    console.log('redirected')
+    .then(result => {
+      const templateVars = {
+        resource: result.rows,
+        user: req.session.user_id
+      }
+      console.log("templatevars", templateVars);
+      res.redirect(`/resources/${req.params.id}`);
     })
+    // .then(result =>{
+
+    // res.redirect('/')
+    // console.log('redirected')
+    // })
     .catch(err => console.log(err))
     }
   });
