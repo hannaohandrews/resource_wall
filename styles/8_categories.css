@@ -1,11 +1,7 @@
-.main-container2 {
+.main-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   padding-top: 120px;
   min-width: 1400px;
   max-width: 1500px;
@@ -18,5 +14,82 @@
   background-color: #d3f1f1;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.main-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font: 'arial';
+}
+
+.main-grid header {
+  margin: 15px;
+}
+
+.main-grid .individual-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 1px dashed #044347;
+  margin: 20px;
+}
+
+.main-grid .resources-container {
+  padding: 20px;
+  border: 1px dashed #044347;
+  margin: 20px;
+  margin-bottom: 30px;
+}
+
+.main-grid .resources-container .like {
+  background-color: #ffee00;
+}
+
+.title {
+  width: 230px;
+  height: 77px;
+  font-size: 20px;
+  font-family: 'Assistant';
+  margin-top: 10px;
+  margin-left: 30px;
+  color: #044347;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.resource-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=8_categories.css.map */
