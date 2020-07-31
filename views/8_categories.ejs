@@ -32,9 +32,12 @@
 
         <footer>
           <div class="resource-details">
-            <p></p><%= resource[item].title %></p>
-            <p>Rating : <%= resource[item].rating %></p>
-            <p>Username : <%= resource[item].username %></p>
+            <a href="/resources/<%= resource[item].id %>"" ><%= resource[item].title %></a>
+              <p>Rating: <%= resource[item].rating %></p>
+              <p>Added by: <%= resource[item].username %></p>
+
+              <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+                <input type="button" class='like' value="Like" /> </input>
           </div>
         </footer>
       </div>

@@ -13,18 +13,19 @@
         <header>
         <div class ="resource-image">
 
-          <a href= <%= resource[item].resource_url %> >
+          <a href= <%= resource[item].resource_url %> target="_blank" >
             <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
           </a>
         </div>
       </header>
       <footer>
         <div class="resource-details">
-          <p><%= resource[item].title %></p>
-          <p><%= resource[item].rating %></p>
-          <p><%= resource[item].username %></p>
-          <!-- NEED TO ADD LIKE POST LINK HERE -->
-          <!-- <form method="POST" action="/"><button>Delete</button></form> -->
+          <a href="/resources/<%= resource[item].id %>"" ><%= resource[item].title %></a>
+              <p>Rating: <%= resource[item].rating %></p>
+              <p>Added by: <%= resource[item].username %></p>
+
+              <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+                <input type="button" class='like' value="Like" /> </input>
       </div>
     </footer>
       <% } %>
