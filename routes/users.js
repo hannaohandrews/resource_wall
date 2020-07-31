@@ -19,35 +19,36 @@ module.exports = (db) => {
       }
     });
     let unArr = Object.values(unique);
-    return unArr
+    return unArr;
   }
 
+  // CJ function to get like information called in router.post("/:id/like")
   const updateLike = (res, id)=>{
     console.log(`id for update like: ${id}`);
     // req.session.user_id = req.params.id;
     // const id = req.params.id;
-      const query = {
-        text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
-        FROM resources
-        JOIN users ON resources.user_id = users.id
-        JOIN likes ON likes.user_id = users.id
-        WHERE likes.active = TRUE OR resources.user_id = $1
-        GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
-        values: [id]
-      }
-      db
+    const query = {
+      text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+      FROM resources
+      JOIN users ON resources.user_id = users.id
+      JOIN likes ON likes.user_id = users.id
+      WHERE likes.active = TRUE OR resources.user_id = $1
+      GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
+      values: [id]
+    };
+    db
       .query(query)
       .then(result => {
-        let arr = removeDups(result.rows.reverse())
+        let arr = removeDups(result.rows.reverse());
         const templateVars = {
           resource: [],
           user : id
-        }
-        console.log("=====success update like", JSON.stringify(arr))
+        };
+        //console.log("=====success update like", JSON.stringify(arr))
         res.render("4_homepage_logged", templateVars);
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
 
   // CJ user home page with all resources
@@ -55,32 +56,30 @@ module.exports = (db) => {
     console.log(req.session);
     req.session.user_id = req.params.id;
     const id = req.params.id;
-      const query = {
-        text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+    const query = {
+      text: `SELECT DISTINCT resources.id, resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
         FROM resources
         JOIN users ON resources.user_id = users.id
         JOIN likes ON likes.user_id = users.id
         WHERE likes.active = TRUE OR resources.user_id = $1
         GROUP BY resources.id, resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
       values: [id]
-    }
+    };
     db
       .query(query)
       .then(result => {
-
-        // console.log(`rows: ${JSON.stringify(removeDups(result.rows))}`)
         const templateVars = {
           resource: removeDups(result.rows),
           user : req.session.user_id
-        }
-        console.log("=====", req.session.user_id)
+        };
+        //console.log("=====", req.session.user_id);
         res.render("4_homepage_logged", templateVars);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   });
 
 
-  // LOGOUT
+  // HOA Logout
   router.post("/logout", (req, res) => {
     res.clearCookie("user_id", {
       path: "/"
@@ -88,14 +87,14 @@ module.exports = (db) => {
     res.redirect('/login');
   });
 
-  // CJ profile page route to match input id - need to check if correct
+  // CJ profile page route to match input id (bypass login process)
   router.get("/profile/:id", (req, res) => {
     const id = req.params.id;
-    console.log("id:", id)
+    console.log("id:", id);
     if (!req.session.user_id) {
       const templateVars = {
         user: req.session.user_id
-      }
+      };
       res.redirect("/", templateVars);
     } else {
       const query = {
@@ -108,26 +107,27 @@ module.exports = (db) => {
           const templateVars = {
             users: result.rows[0],
             user: req.session.user_id
-          }
+          };
           console.log("result", result);
           res.render("6_profile", templateVars);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   });
 
+  // CJ Update profile details and re-render updated page
   router.post("/profile/:id", (req, res) => {
     const id = req.session.user_id;
-    console.log("id:", id)
+    console.log("id:", id);
     if (!req.session.user_id) {
       const templateVars = {
         user: req.session.user_id
-      }
+      };
       res.redirect("/", templateVars);
       return;
     } else {
-      const user = req.body
-      console.log(user)
+      const user = req.body;
+      console.log(user);
       const query = {
         text: `UPDATE users
       SET username = $1,
@@ -137,37 +137,38 @@ module.exports = (db) => {
       profile_image_url = $5
       WHERE id = $6
       RETURNING *`, values : [user.username, user.first_name, user.last_name, user.email, user.profile_image_url, id]
-      }
+      };
       db
-      .query(query)
-      .then(result => {
-        const templateVars = {
-          users: result.rows[0],
-          user: req.session.user_id
-        }
-        console.log("result", result);
-        res.render("6_profile", templateVars);
-      })
-    .catch(err => console.log(err))
+        .query(query)
+        .then(result => {
+          const templateVars = {
+            users: result.rows[0],
+            user: req.session.user_id
+          };
+          console.log("result", result);
+          res.render("6_profile", templateVars);
+        })
+        .catch(err => console.log(err));
     }
   });
 
+  //CJ Validate if post is already liked by user and like/unlike accordingly
   router.post("/:id/like", (req,res) => {
 
     console.log(req.session.user_id);
     console.log("req.params:", req.params);
-    console.log("req:", req.body)
+    console.log("req:", req.body);
 
     if (!req.session.user_id) {
       const templateVars = {
         user : req.session.user_id
-      }
+      };
       res.redirect(200, "/",templateVars);
       return;
     } else {
       let likeStatus = req.body.likeStatus;
       let queryText;
-      console.log(`likeStatus: ${likeStatus}`)
+      console.log(`likeStatus: ${likeStatus}`);
       if (likeStatus === 'true') {
         queryText = 'UPDATE likes SET active = false WHERE user_id = $1 AND resource_id = $2 RETURNING *';
       } else {
@@ -176,48 +177,48 @@ module.exports = (db) => {
       const query = {
         text: queryText,
         values: [req.session.user_id, req.params.id]
-      }
+      };
       db.query(query)
-      .then(result =>
-        console.log(result.rows),
+        .then(result =>
+          console.log(result.rows),
         console.log("liked"),
         updateLike(res, req.session.user_id),
-        // res.redirect(200,"/")
-      )
-      .catch(err => console.log(err))
+        )
+        .catch(err => console.log(err));
     }
   });
 
+  //CJ duplicate of homepage logged in via users/ route
   router.get("/", (req, res) => {
     console.log(req.session.user_id);
     if (!req.session.user_id) {
       const templateVars = {
         user : req.session.user_id
-      }
+      };
       res.render("1_homepage_nl",templateVars);
     } else {
       req.session.user_id = req.params.id;
       const id = req.params.id;
-        const query = {
-          text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
+      const query = {
+        text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
           FROM resources
           JOIN users ON resources.user_id = users.id
           JOIN likes ON likes.user_id = users.id
           WHERE likes.active = TRUE OR resources.user_id = $1
           GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
-          values: [id]
-        }
-        db
+        values: [id]
+      };
+      db
         .query(query)
         .then(result => {
           const templateVars = {
             resource: result.rows,
             user : req.session.user_id
-          }
-          console.log(templateVars)
+          };
+          console.log(templateVars);
           res.render("4_homepage_logged", templateVars);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   });
 
