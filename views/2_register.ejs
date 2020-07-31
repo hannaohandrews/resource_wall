@@ -1,50 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>C&H</title>
-</head>
-<body>
+  <head>
+    <%- include('partials/head') %>
+  </head>
 
-  <main style="margin: 2em;"></main>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>C&H</title>
-</head>
   <body>
-      <div class="card text-center">
-          <div class="card-header"></div>
-          <div class="card-body">
-    <main style="margin: 1em;">
-      <h2>REGISTRATION FORM</h2>
 
-      <form class="form-inline" action="/register" method="POST">
-        <div class="form-group mb-2">
+      <div class="card-body">
+          <h2>REGISTRATION FORM</h2>
 
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username">
-
-          <label for="first_name">First Name:</label>
-          <input type="text" id="first_name" name="first_name">
-
-          <label for="last_name">Last Name:</label>
-          <input type="text" id="last_name" name="last_name">
-
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email">
-
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password">
-
-          <label for="profile_image_url">Photo:</label>
-          <input type="url" id="profile_image_url" name="profile_image_url">
-
-          <button type='submit'>SUBMIT</button>
-
-         </div>
-      </form>
-
-
+          <section class="reg-form">
+            <form class="form-inline" action="/register" method="POST">
+              <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name">
+              </div>
+              <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+              </div>
+              <div class="form-group">
+                <label for="profile_image_url">Photo:</label>
+                <input type="url" id="profile_image_url" name="profile_image_url">
+              </div>
+              <div class="form-group">
+                <button type='submit'>SUBMIT</button>
+              </div>
+            </form>
+          </section>

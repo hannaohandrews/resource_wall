@@ -1,38 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <%- include('partials/head') %>
   </head>
   <%- include('partials/nav') %>
   <%- include('partials/categories') %>
   <body>
     <h1>ADD_NEW</h1>
-
+    <section class="new-form"></section>
     <form class="form-inline" action="/resources/new" method="POST">
-      <div class="form-group mb-2">
-
+      <div class="form-group">
         <label for="title">TITLE:</label>
         <input type="text" id="title" name="title">
-        <label for="resource_url">URL:</label>
-        <input type="url" id="url" name="url">
-        <label for="resource_image_url">PICTURE:</label>
-        <input type="url" id="resource_image_url" name="resource_image_url">
-        <label for="category">CATEGORY:</label>
-        <input type="text" id="category" name="category">
-        <label for="description">DESCRIPTION:</label>
-        <input type="text" id="description" name="description">
-        <label for="rating">RATING:</label>
-        <input type="text" id="rating" name="rating" placeholder="/5">
+      </div>
+        <div class="form-group">
+          <label for="resource_url">URL:</label>
+          <input type="url" id="url" name="url">
+        </div>
+        <div class="form-group">
+          <label for="resource_image_url">PICTURE:</label>
+          <input type="url" id="resource_image_url" name="resource_image_url">
+        </div>
+        <div class="form-group">
+          <label for="category">CATEGORY:</label>
+          <input type="text" id="category" name="category">
+        </div>
+        <div class="form-group">
+          <label for="description">DESCRIPTION:</label>
+          <input type="text" id="description" name="description">
+        </div>
+        <div class="form-group">
+          <label for="rating">RATING:</label>
+          <input type="text" id="rating" name="rating" placeholder="/5">
+        </div>
+        <div class="form-group">
         <button type='submit'>SUBMIT</button>
        </div>
     </form>
+  </section>
   </body>
 </html>
+
+
+

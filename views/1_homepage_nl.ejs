@@ -1,25 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <!-- Meta Information -->
-  <title>Home Page</title>
-
-  <!-- External CSS -->
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <!-- App CSS -->
-
-  <!-- App JS -->
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-
-
-<!-- Top nav bar (fixed) -->
-<header>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>C&H</title>
-</header>
+  <head>
+    <%- include('partials/head') %>
+  </head>
 
 <body>
   <%- include('partials/nav') %>
@@ -33,15 +16,6 @@
 
 <!-- Page-specific (main) content here -->
 <main class='container'>
-  <section class= 'categories'>
-  <body>
-    <h1>CATEGORY 1</h1>
-    <h1>CATEGORY 2</h1>
-    <h1>CATEGORY 3</h1>
-    <h1>CATEGORY 4</h1>
-    <h1>CATEGORY 5</h1>
-    <h1>CATEGORY 1</h1>
-  </section>
 
   <section class="category-list">
     <div class="category">

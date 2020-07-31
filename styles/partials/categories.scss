@@ -3,10 +3,14 @@
 @mixin flexCenter(){
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.page_divider {
+  display: flex;
+  flex-direction:row;
 }
 
 .categories {
+
   @include flexCenter();
-  margin-top: 500px;
 }

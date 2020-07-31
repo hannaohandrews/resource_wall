@@ -1,51 +1,42 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
-    <title>Home Page</title>
-
-    <%- include('partials/nav') %>
-    <%- include('partials/categories') %>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <!-- <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
-    <script type="text/javascript" src="/scripts/like.js"></script>
+    <%- include('partials/head') %>
   </head>
 
-  <body>
-    <h1>HOMEPAGE_LOGGED_IN</h1>
-    <main>
+  <body class='page_divider'>
+  <header>
+    <%- include('partials/nav') %>
+  </header>
+  <main class='main-container'>
+  <%- include('partials/categories') %>
+  <div class='page-detail'>
+    <h1>My Resources</h1>
+  <div class='main-grid'>
     <% for (let item in resource) { %>
+      <div class = 'resources-container'>
       <header>
-      <div class ="resource-image">
-        <a href= <%= resource[item].resource_url %> >
-          <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
-        </a>
-      </div>
-    </header>
-    <footer>
-      <div class="resource-details">
-        <p><%= resource[item].title %></p>
-        <p><%= resource[item].rating %></p>
-        <p><%= resource[item].username %></p>
+        <div class="resource-image">
+          <a href=<%= resource[item].resource_url %>>
+            <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
+          </a>
+        </div>
+      </header>
+      <footer>
+        <div class="resource-details">
+          <p><%= resource[item].title %></p>
+          <p>RATING<%= resource[item].rating %></p>
+          <p><%= resource[item].username %></p>
 
-        <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
-          <input type="button" class='like' value=<%= resource[item].like %> /> </input>
-      </div>
-
-      </div>
+          <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+            <input type="button" class='like' value=<%= resource[item].like %> /> </input>
+          </div>
+      </footer>
     </div>
-  </footer>
-    <% } %>
-    </main>
-  </body>
-</html>
+      <% } %>
+    </div>
+  </div>
 
-
-
-<!-- title, resource_url, description, resource_image_url, rating, user_id -->
+</main>
+</body>

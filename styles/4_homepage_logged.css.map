@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,eAAe,CAAC;EACd,OAAO,EAAC,IAAI;EACZ,eAAe,EAAE,aAAa;EAC9B,WAAW,EAAC,KAAK;EACjB,SAAS,EAAE,MAAM;EACjB,SAAS,EAAE,MAAM;EACjB,MAAM,EAAE,MAAM;CAGf;;AACD,AAAA,YAAY,CAAA;EACV,SAAS,EAAE,CAAC;CAEb",
     "sources": [
         "4_homepage_logged.scss"
     ],

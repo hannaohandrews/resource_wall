@@ -1,1 +1,19 @@
-/* No CSS *//*# sourceMappingURL=4_homepage_logged.css.map */
+.main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 120px;
+  min-width: 1200px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-detail {
+  -webkit-box-flex: 4;
+      -ms-flex-positive: 4;
+          flex-grow: 4;
+}
+/*# sourceMappingURL=4_homepage_logged.css.map */
