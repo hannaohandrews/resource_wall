@@ -7,6 +7,7 @@
     <%- include('partials/nav') %>
     <%- include('partials/categories') %>
 
+    <link rel="stylesheet" href="/styles/4_homepage_logged.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -19,23 +20,24 @@
 
   <body>
     <h1>HOMEPAGE_LOGGED_IN</h1>
-    <main>
+    <main class="grid" >
     <% for (let item in resource) { %>
       <header>
       <div class ="resource-image">
-        <a href= <%= resource[item].resource_url %> >
+        <a href= <%= resource[item].resource_url %> target="_blank" >
           <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
         </a>
       </div>
     </header>
     <footer>
       <div class="resource-details">
-        <p><%= resource[item].title %></p>
-        <p><%= resource[item].rating %></p>
-        <p><%= resource[item].username %></p>
+
+        <a href="/resources/<%= resource[item].id %>"" ><%= resource[item].title %></a>
+        <p>Rating: <%= resource[item].rating %></p>
+        <p>Added by: <%= resource[item].username %></p>
 
         <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
-          <input type="button" class='like' value=<%= resource[item].like %> /> </input>
+          <input type="button" class='like' value="Like" /> </input>
       </div>
 
       </div>
