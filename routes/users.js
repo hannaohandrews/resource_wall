@@ -10,10 +10,11 @@ const router = express.Router();
 
 module.exports = (db) => {
 
+  // CJ function to remove duplcates recieved back from /login/:id
   function removeDups(names) {
     let unique = {};
     names.forEach(function(i) {
-      if(!unique[i.id]) {
+      if (!unique[i.id]) {
         unique[i.id] = i;
       }
     });

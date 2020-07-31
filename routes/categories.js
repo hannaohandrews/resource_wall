@@ -3,12 +3,13 @@ const router = express.Router();
 
 module.exports = (db) => {
 
+  // CJ Route to search for categories by title
   router.get("/:id", (req, res) => {
     const id = req.params.id;
     if (!req.session.user_id) {
       const templateVars = {
         user: req.session.user_id
-      }
+      };
       res.redirect("/", templateVars);
       return;
     } else {
@@ -28,10 +29,10 @@ module.exports = (db) => {
           const templateVars = {
             resource: result.rows,
             user: req.session.user_id
-          }
+          };
           res.render("8_categories", templateVars);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   });
 
