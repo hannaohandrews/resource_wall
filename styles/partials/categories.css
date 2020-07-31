@@ -9,6 +9,10 @@
 }
 
 .categories {
+  background-color: #d3f1f1;
+  padding-right: 30px;
+  font-family: 'Assistant';
+  font-size: 12px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,5 +20,19 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 30px;
+  padding-top: 100px;
+}
+
+.categories button {
+  background-color: LightSeaGreen;
+  font-size: 15px;
+  color: white;
+  width: 150px;
+  margin: 10px;
+  font-weight: bold;
 }
 /*# sourceMappingURL=categories.css.map */
