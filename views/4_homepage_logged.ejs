@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <%- include('partials/head') %>
-  </head>
-
-  <body class='page_divider'>
+<head>
+  <%- include('partials/head') %>
+</head>
+<body class='page_divider'>
   <header>
     <%- include('partials/nav') %>
   </header>
   <main class='main-container'>
-  <%- include('partials/categories') %>
-  <div class='page-detail'>
-    <h1>My Resources</h1>
-  <div class='main-grid'>
-    <% for (let item in resource) { %>
-      <div class = 'resources-container'>
-      <header>
-        <div class="resource-image">
-          <a href=<%= resource[item].resource_url %>>
-            <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
-          </a>
+
+    <div class=box1>
+      <%- include('partials/categories') %>
+    </div>
+
+    <div class='page-detail'>
+
+      <div class='title'>
+        <h2>MY RESOURCES</h2>
+      </div>
+
+      <div class='main-grid'>
+        <% for (let item in resource) { %>
+
+        <div class='resources-container'>
+
+            <div class="resource-image">
+              <a href=<%= resource[item].resource_url %>>
+                <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
+              </a>
+            </div>
+
+          <footer>
+            <div class="resource-details">
+              <p><%= resource[item].title %></p>
+              <p>RATING<%= resource[item].rating %></p>
+              <p><%= resource[item].username %></p>
+
+              <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+                <input type="button" class='like' value=<%= resource[item].like %> /> </input>
+              </div>
+          </footer>
         </div>
-      </header>
-      <footer>
-        <div class="resource-details">
-          <p><%= resource[item].title %></p>
-          <p>RATING<%= resource[item].rating %></p>
-          <p><%= resource[item].username %></p>
-
-          <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
-            <input type="button" class='like' value=<%= resource[item].like %> /> </input>
-          </div>
-      </footer>
+        <% } %>
+      </div>
     </div>
-      <% } %>
-    </div>
-  </div>
 
-</main>
+  </main>
 </body>

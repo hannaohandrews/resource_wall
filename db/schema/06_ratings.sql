@@ -6,10 +6,3 @@ CREATE TABLE ratings (
   resource_id INTEGER REFERENCES resources(id) ON DELETE CASCADE
 );
 
-
-
-  const query= {
-    text:`INSERT INTO resources (title, resource_url, description, resource_image_url, rating, user_id)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *`, values : [resource.title, resource.url, resource.description, resource.resource_image_url,resource.rating, user]
-    }
