@@ -1,4 +1,8 @@
-.reg-form {
+h1 {
+  margin-left: 100px;
+}
+
+.new-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,7 +18,7 @@
           align-items: center;
 }
 
-.reg-form form {
+.new-form form {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -27,7 +31,7 @@
           align-items: center;
 }
 
-.reg-form form .form-group {
+.new-form form .form-group {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -40,11 +44,11 @@
   padding: 20px;
 }
 
-.reg-form form .form-group label {
+.new-form form .form-group label {
   padding-right: 10px;
 }
 
-.reg-form form .form-group button {
+.new-form form .form-group button {
   background-color: lightseagreen;
 }
 /*# sourceMappingURL=7_add_new.css.map */
