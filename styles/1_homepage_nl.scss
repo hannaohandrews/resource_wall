@@ -1,0 +1,14 @@
+
+.category-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 200px;
+}
+
+
+.image {
+  max-width:100%;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+}

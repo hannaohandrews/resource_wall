@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('partials/head') %>
-  </head>
 
-<body>
-  <%- include('partials/nav') %>
-  <main style="margin: 1em;">
+<head>
+  <%- include('partials/head') %>
+</head>
 
-<!-- Page-specific (main) content here -->
-<main class='container'>
+<body class='page_divider'>
 
-  <section class="category-list">
-    <div class="category">
-      <label>Web Development</label>
-      <img src="https://www.codecademy.com/webpack/e908164f059c81faded2866ab983e950.png">
-    </div>
-    <div class="category">
-      <label>Cooking</label>
-      <img src="https://www.lazygourmet.ca/wp-content/uploads/classroom-banner.jpg">
-    </div>
-    <div class="category">
-      <label>Early Years</label>
-      <img src="https://www.earlyyearscareers.com/eyc/wp-content/uploads/2017/01/education-919895_1280.jpg">
-    </div class="category">
-    <div>
-      <label>Languages</label>
-      <img src="https://1635225677.rsc.cdn77.org/images/best-language-learning-apps.jpg">
-    </div>
-  </section>
+  <header>
+    <%- include('partials/nav') %>
+  </header>
+
+    <section class="category-list">
+
+      <div class="category">
+        <label>Coding for kids</label>
+        <img class ='image' src='https://www.codecademy.com/webpack/e908164f059c81faded2866ab983e950.png'>
+      </div>
+
+      <div class="category">
+        <label>Cooking</label>
+        <img src="https://www.lazygourmet.ca/wp-content/uploads/classroom-banner.jpg">
+      </div>
+
+      <div class='Maths'>
+        <label>Maths</label>
+        <img src='https://www.earlyyearscareers.com/eyc/wp-content/uploads/2017/01/education-919895_1280.jpg'>
+      </div>
+
+      <div class="languages">
+        <label>Languages</label>
+        <img src="https://1635225677.rsc.cdn77.org/images/best-language-learning-apps.jpg">
+      </div>
+
+      <div class="category4">
+        <label>Crafts</label>
+        <img src='https://www.kidslovewhat.com/wp-content/uploads/2019/02/unicorn-crafts-for-kids.jpg'>
+      </div>
 
 
-</main>
+
+    </section>
+
 
 </body>
 
