@@ -3,6 +3,7 @@
 @mixin flexCenter(){
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .page_divider {
@@ -11,6 +12,23 @@
 }
 
 .categories {
-
+  background-color: rgb(211, 241, 241);
+  padding-right:30px;
+  font-family: 'Assistant';
+  font-size: 12px;
   @include flexCenter();
+  padding-left: 30px;
+  padding-top: 100px;
+  button {
+    background-color : LightSeaGreen;
+    font-size: 15px;
+    color:white;
+    width: 150px;
+    margin:10px;
+    font-weight: bold;
+
+  }
 }
+
+
+

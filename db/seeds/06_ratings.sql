@@ -5,10 +5,10 @@ INSERT INTO ratings (rating, user_id, resource_id)
 VALUES (2, 1, 2);
 
 INSERT INTO ratings (rating, user_id, resource_id)
-VALUES (4, 3, 5);
+VALUES (4, 3, 1);
 
 INSERT INTO ratings (rating, user_id, resource_id)
-VALUES (3, 2, 4);
+VALUES (3, 1, 3);
 
 INSERT INTO ratings (rating, user_id, resource_id)
 VALUES (3, 3, 3);
