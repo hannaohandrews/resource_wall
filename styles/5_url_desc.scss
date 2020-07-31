@@ -2,11 +2,14 @@
   display:flex;
   justify-content: space-between;
   padding-top:120px;
-  min-width: 1400px;
-  max-width: 1500px;
+  max-width:1000px;
   margin: 0 auto;
   font-family: 'Assistant';
   color: black;
+
+  p {
+    font-weight: bold;
+  }
 
 }
 
@@ -16,11 +19,30 @@
 
 }
 
+.titles {
+  width: 500px;
+  height: 77px;
+  font-size: 20px;
+  font-family: 'Assistant';
+  margin-top: 10px;
+  margin-left:50px;
+  color:rgb(4, 67, 71);
+
+}
+
+
+
 .main-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   font:'arial';
+
+.page-detail {
+  display : flex;
+  flex-direction: column;
+  min-width:1000px
+}
 
   header{
   margin: 50px;
@@ -35,18 +57,8 @@
       background-color: rgb(255, 238, 0);
     }
   }
-
 }
 
-.title{
-width: 230px;
-height: 77px;
-font-size: 20px;
-font-family: 'Assistant';
-margin-top: 10px;
-margin-left: 30px;
-color:rgb(4, 67, 71);
-display: flex;
-align-items: center;
-justify-content:center;
-}
+
+
+
