@@ -178,11 +178,12 @@ app.post("/search", (req, res) => {
     return;
   } else {
     const query = {
-      text: `SELECT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username
+      text: `SELECT DISTINCT resources.title, resources.resource_url, resources.resource_image_url, ROUND(AVG(resources.rating), 1) AS rating, users.username AS username, likes.active AS like
       FROM resources
       JOIN users ON resources.user_id = users.id
+      JOIN likes ON likes.user_id = users.id
       WHERE title ILIKE $1
-      GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username`,
+      GROUP BY resources.title, resources.resource_url, resources.description, resources.resource_image_url, resources.rating, resources.user_id, users.username, likes.active`,
       values: [`%${req.body.search}%`]
     };
     console.log(req.body);

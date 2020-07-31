@@ -21,23 +21,26 @@
       <div class='main-grid'>
         <% for (let item in resource) { %>
 
-        <div class='individual-grid'>
-          <header>
-            <div class="resource-image">
-              <a href=<%= resource[item].resource_url %>>
-                <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
-              </a>
-            </div>
-          </header>
+          <div class = 'individual-grid'>
+        <header>
+          <div class="resource-image">
+            <a href=<%= resource[item].resource_url %>>
+              <img src=<%= resource[item].resource_image_url %> alt=<%= resource[item].title %> style="width:200px;">
+            </a>
+          </div>
+        </header>
 
-          <footer>
-            <div class="resource-details">
-              <p></p><%= resource[item].title %></p>
-              <p>Rating : <%= resource[item].rating %></p>
-              <p>Username : <%= resource[item].username %></p>
-            </div>
-          </footer>
-        </div>
+        <footer>
+          <div class="resource-details">
+            <a href="/resources/<%= resource[item].id %>"" ><%= resource[item].title %></a>
+              <p>Rating: <%= resource[item].rating %></p>
+              <p>Added by: <%= resource[item].username %></p>
+
+              <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+                <input type="button" class='like' value="Like" /> </input>
+          </div>
+        </footer>
+      </div>
         <% } %>
 
       </div>
