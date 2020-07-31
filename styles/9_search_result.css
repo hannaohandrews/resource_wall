@@ -2,9 +2,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   padding-top: 120px;
   min-width: 1400px;
   max-width: 1500px;
@@ -69,7 +66,7 @@
   height: 77px;
   font-size: 20px;
   font-family: 'Assistant';
-  margin-top: 10px;
+  margin-top: 30px;
   margin-left: 30px;
   color: #044347;
   display: -webkit-box;
