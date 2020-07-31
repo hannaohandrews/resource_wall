@@ -23,4 +23,4 @@ INSERT INTO resource_categories (category_id, resource_id)
 VALUES (3, 1);
 
 INSERT INTO resource_categories (category_id, resource_id)
-VALUES (4, 3);
+VALUES (5, 3);
