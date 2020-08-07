@@ -2,51 +2,52 @@
 <html lang="en">
 
 <head>
-
-  <!-- Meta Information -->
-  <title>Home Page</title>
-
-  <!-- External CSS -->
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <!-- App CSS -->
-
-  <!-- App JS -->
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
+  <%- include('partials/head') %>
 </head>
 
-<!-- Top nav bar (fixed) -->
-<div class='navbar'>
-  <nav class='topRow'>
-    <span>C&H CLASS </span>
-  </nav>
-</div>
+<body class='page_divider'>
 
-<header class='main-header'>
-  <div>
-    <!-- <img class='main-image' src="/images/profile-hex.png"> -->
+  <header>
+    <%- include('partials/nav') %>
+
+  </header>
+
+<div class = 'welcome'>
+  <h1 class= 'message' >Welcome to Quinterest!</h1>
+  <h3 class= 'message' > A fun place for both adults and children!   Please register or log-in for awesome resources. </h3>
+
+    <section class="category-list">
+
+      <div class="category">
+        <label>Coding for kids</label>
+        <img src='https://www.codecademy.com/webpack/e908164f059c81faded2866ab983e950.png'>
+      </div>
+
+      <div class="category">
+        <label>Cooking</label>
+        <img src="https://www.lazygourmet.ca/wp-content/uploads/classroom-banner.jpg">
+      </div>
+
+      <div class='category'>
+        <label>Maths</label>
+        <img src='https://www.earlyyearscareers.com/eyc/wp-content/uploads/2017/01/education-919895_1280.jpg'>
+      </div>
+
+      <div class="category">
+        <label>Languages</label>
+        <img src="https://1635225677.rsc.cdn77.org/images/best-language-learning-apps.jpg">
+      </div>
+
+      <div class="category">
+        <label>Crafts</label>
+        <img src='https://www.kidslovewhat.com/wp-content/uploads/2019/02/unicorn-crafts-for-kids.jpg'>
+      </div>
+
+
+
+    </section>
+
   </div>
-  <br>
-  <div>
-    <h2>WELCOME! PLEASE LOGIN OR REGISTER!</h2>
-  </div>
-</header>
-
-<!-- Page-specific (main) content here -->
-<main class='container'>
-  <section class= 'categories'>
-  <body>
-    <h1>CATEGORY 1</h1>
-    <h1>CATEGORY 2</h1>
-    <h1>CATEGORY 3</h1>
-    <h1>CATEGORY 4</h1>
-    <h1>CATEGORY 5</h1>
-    <h1>CATEGORY 1</h1>
-  </section>
-</main>
-
 </body>
 
 </html>

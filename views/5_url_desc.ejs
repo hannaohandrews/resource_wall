@@ -1,17 +1,77 @@
 <!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<head>
+  <%- include('partials/head') %>
+</head>
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+<body class='page_divider'>
 
-  <body>
-    <h1>URL </h1>
-  </body>
+  <header>
+    <%- include('partials/nav') %>
+  </header>
+
+  <main class='main-container'>
+
+    <div class=box1>
+      <%- include('partials/categories') %>
+    </div>
+    <div class='page-detail'>
+
+      <div class='titles'>
+        <h2>RESOURCE DETAILS</h2>
+
+
+        <header>
+
+          <div class='resources-container'>
+            <p>Title: <%= resource.title %></p>
+            <p>Username: <%= resource.username %></p>
+            <p>Rating: <%= resource.rating %></p>
+            <p>CATEGORIES:</p>
+            <% for (let category of categories) { %>
+            <p><%= category.category %></p>
+            <% } %>
+
+          </div>
+        </header>
+
+        <footer>
+
+          <div class="resource-image">
+            <a href=<%= resource.resource_url %>>
+              <img src=<%= resource.resource_image_url %>>
+            </a>
+            <p><%= resource.description %></p>
+          </div>
+        </footer>
+
+        <div class='resources-container'>
+          <form class="form-resource" action="/resources/<%= id %>" method="POST">
+            <div class="form-group mb-2">
+              <label for="category">ADD CATEGORY:</label>
+              <input type="text" id="category" name="category">
+              <label for="rating">RATING:</label>
+              <input type="number" id="rating" name="rating">
+              <label for="comment">COMMENT:</label>
+              <input type="comment" id="comment" name="comment">
+              <button type ='submit'>SUBMIT</button>
+            </div>
+          </form>
+        </div>
+        <div class ='resources-container'>
+          <label>OLD COMMENTS:</label>
+          <% for (let comment of comments) { %>
+
+          <p><%= comment.comments %></p>
+          <% } %>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+
 </html>

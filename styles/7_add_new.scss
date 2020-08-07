@@ -1,0 +1,50 @@
+h1 {
+  margin-left: 100px;
+}
+
+
+.new-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  form {
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-group {
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-content: space-between;
+      padding: 20px;
+      label {
+        padding-right: 10px;
+      }
+      button {
+        background-color: lightseagreen;
+      }
+    }
+  }
+}
+.resources-container {
+
+  padding:20px;
+  border: 1px dashed rgb(4, 67, 71);
+  margin: 50px;
+  margin-bottom: 30px;
+    .form-group {
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: space-between;
+      padding: 20px;
+      label {
+        padding-right: 10px;
+      }
+      button {
+        background-color: lightseagreen;
+      }
+}
+}

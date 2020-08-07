@@ -1,0 +1,88 @@
+.main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  padding-top: 120px;
+  min-width: 1400px;
+  max-width: 1500px;
+  margin: 0 auto;
+  font-family: 'Assistant';
+  color: black;
+}
+
+.box1 {
+  background-color: #d3f1f1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.page-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font: 'arial';
+}
+
+.page-detail header {
+  margin: 50px;
+}
+
+.page-detail .resources-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  border: 1px dashed #044347;
+  margin: 70px;
+  margin-bottom: 30px;
+}
+
+.page-detail .resources-container .form-group {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.page-detail .resources-container .form-group .table-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.title {
+  width: 230px;
+  height: 77px;
+  font-size: 20px;
+  font-family: 'Assistant';
+  margin-top: 10px;
+  margin-left: 30px;
+  color: #044347;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=6_profile.css.map */

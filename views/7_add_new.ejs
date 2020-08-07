@@ -2,16 +2,64 @@
 <html lang="en">
   <head>
     <title>Home Page</title>
-
+    <link rel="stylesheet" href="/styles/7_add_new.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <%- include('partials/head') %>
   </head>
+  <body class='page_divider'>
+    <header>
+      <%- include('partials/nav') %>
+    </header>
+    <main class='main-container'>
 
-  <body>
-    <h1>ADD_NEW</h1>
+      <div class=box1>
+        <%- include('partials/categories') %>
+      </div>
+
+      <div class='page-detail'>
+
+        <div class='title'>
+          <h2>NEW RESOURCE</h2>
+        </div>
+    <div class='resources-container'>
+
+    <form class="form-inline" action="/resources/new" method="POST">
+      <div class="form-group">
+        <label for="title">TITLE:</label>
+        <input type="text" id="title" name="title">
+      </div>
+        <div class="form-group">
+          <label for="resource_url">URL:</label>
+          <input type="url" id="url" name="url">
+        </div>
+        <div class="form-group">
+          <label for="resource_image_url">PICTURE:</label>
+          <input type="url" id="resource_image_url" name="resource_image_url">
+        </div>
+        <!-- <div class="form-group">
+          <label for="category">CATEGORY:</label>
+          <input type="text" id="category" name="category">
+        </div> -->
+        <div class="form-group">
+          <label for="description">DESCRIPTION:</label>
+          <input type="text" id="description" name="description">
+        </div>
+        <div class="form-group">
+          <label for="rating">RATING:</label>
+          <input type="text" id="rating" name="rating" placeholder="/5">
+        </div>
+        <div class="form-group">
+        <button type='submit'>SUBMIT</button>
+       </div>
+    </form>
+  </div>
   </body>
 </html>
+
+
+

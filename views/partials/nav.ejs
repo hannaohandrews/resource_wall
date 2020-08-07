@@ -1,0 +1,59 @@
+
+<nav class="navbar">
+
+  <img class='logo' src="/images/logo.png">
+
+  <% if (user) { %>
+
+    <h3>USER ID:<%= user %></h3>
+
+    <div class='myresources_button'>
+      <form class="form-inline" action="/users/login/<%= user %>" method="GET">
+        <button type="submit" value="submit">MY RESOURCES</button>
+      </form>
+    </div>
+
+  <div class='search_bar'>
+    <form class="form-inline" action="/search/" method="POST">
+      <input type="text" id="search" name="search">
+      <button type="submit" class="btn btn-success">SEARCH</button>
+    </form>
+  </div>
+
+    <div class='addnew_button'>
+      <form class="form-inline" action="/resources/new" method="GET">
+        <button type="submit" value="submit">ADD NEW RESOURCES</button>
+      </form>
+    </div>
+
+  <div class='editProfile_button'>
+    <form class="form-inline" action="/users/profile/<%= user %>" method="GET">
+      <button type="submit" value="submit">EDIT PROFILE</button>
+    </form>
+  </div>
+
+  <div class='logout_button'></div>
+  <form class="form-inline" action="/logout" method="POST">
+  <button type="submit" value="submit">Log Out</button>
+    </form>
+  </div>
+
+  <%} else {%>
+
+<body class = notLoggedIn>
+  <div class = buttons>
+  <div class='login_button'>
+    <form class="form-inline" action="/login" method="POST">
+      <button><a href="/register">REGISTER</a></button>
+    </form>
+  </div>
+
+  <div class='register_button'>
+    <button><a href="/users/login/1">LOGIN</a>
+    </button>
+    <% } %>
+  </div>
+</div>
+</body>
+
+</nav>

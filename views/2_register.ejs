@@ -1,17 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <link rel="stylesheet" href="/styles/2_register.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+
+  <title>C&H</title>
+</head>
+<body>
+
   <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <%- include('partials/head') %>
   </head>
 
   <body>
-    <h1>REGISTER</h1>
-  </body>
-</html>
+      <div class="card text-center">
+          <div class="card-header"></div>
+          <div class="card-body">
+    <main style="margin: 1em;">
+      <h2>REGISTRATION FORM</h2>
+
+    <section class="reg-form">
+      <form class="form-inline" action="/register" method="POST">
+        <div class="form-group">
+
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username">
+        </div>
+          <div class="form-group">
+          <label for="first_name">First Name:</label>
+          <input type="text" id="first_name" name="first_name">
+        </div>
+          <div class="form-group">
+          <label for="last_name">Last Name:</label>
+          <input type="text" id="last_name" name="last_name">
+        </div>
+          <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email">
+        </div>
+          <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
+        </div>
+          <div class="form-group">
+          <label for="profile_image_url">Photo:</label>
+          <input type="url" id="profile_image_url" name="profile_image_url">
+        </div>
+          <div class="form-group">
+          <button type='submit'>SUBMIT</button>
+
+         </div>
+      </form>
+    </section>
+
+
+      <!-- <div class="card-body">
+          <h2>REGISTRATION FORM</h2>
+
+          <section class="reg-form">
+            <form class="form-inline" action="/register" method="POST">
+              <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name">
+              </div>
+              <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+              </div>
+              <div class="form-group">
+                <label for="profile_image_url">Photo:</label>
+                <input type="url" id="profile_image_url" name="profile_image_url">
+              </div>
+              <div class="form-group">
+                <button type='submit'>SUBMIT</button>
+              </div>
+            </form>
+          </section> -->

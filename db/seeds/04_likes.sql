@@ -1,5 +1,5 @@
 INSERT INTO likes (active, user_id, resource_id)
-VALUES (true, 2, 6);
+VALUES (true, 2, 1);
 
 INSERT INTO likes (active, user_id, resource_id)
 VALUES (true, 1, 2);

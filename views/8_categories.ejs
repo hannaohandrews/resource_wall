@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<head>
+  <%- include('partials/head') %>
+</head>
+<body class='page_divider'>
+  <header>
+    <%- include('partials/nav') %>
+  </header>
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+  <main class='main-container'>
 
-  <body>
-    <h1>CATEGORIES</h1>
-  </body>
-</html>
+    <div class=box1>
+      <%- include('partials/categories') %>
+    </div>
+
+    <div class='page-detail'>
+
+      <div class='title'>
+        <h2>CATEGORIES</h2>
+      </div>
+
+      <div class='main-grid'>
+
+        <% for (let item in resource) { %>
+
+        <div class='resources-container'>
+
+            <div class="resource-image">
+              <a href= <%= resource[item].resource_url %> target="_blank" >
+                <img src=<%= resource[item].resource_image_url %> alt= <%= resource[item].title %> style="width:200px;">
+              </a>
+            </div>
+
+          <footer>
+            <div class="resource-details">
+              <a href="/resources/<%= resource[item].id %>"" ><%= resource[item].title %></a>
+              <p>Rating: <%= resource[item].rating %></p>
+              <p>Added by: <%= resource[item].username %></p>
+
+              <div class="post" postid=<%= resource[item].id %> likestatus=<%= resource[item].like %>>
+                <input type="button" class='like' value="Like" /> </input>
+            </div>
+          </footer>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+  </main>
+</body>

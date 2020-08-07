@@ -1,0 +1,42 @@
+@import "./variables";
+
+@mixin flexCenter(){
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.navbar {
+
+  padding:20px;
+  background-color: lighten($color:LightSeaGreen, $amount: 0);
+  height: 120px;
+  position: fixed;
+  width : 100%;
+  font-family: 'Assistant';
+  @include flexCenter();
+
+  .logo {
+    height:70px;
+    width:200px;
+    margin: 1%;
+
+  }
+
+  button {
+    font-family : 'Assistant';
+    background-color:$primaryBtn;
+    color: $textBtn;
+    font-weight: bold;
+  }
+}
+
+.notloggedIn{
+  margin-right: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+}
+
+
+
