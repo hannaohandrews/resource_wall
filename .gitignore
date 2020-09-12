@@ -1,6 +1,13 @@
 node_modules/
 public/styles
-.env
 .DS_Store
+.env
+.gitignore
+.editorconfig
+.env.example
+.eslintrc.json
+Midterm ERD.png
+package-json
+package-lock.json
 *.log
 *.sqlite3
