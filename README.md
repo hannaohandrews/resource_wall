@@ -1,6 +1,13 @@
 LHL Node Skeleton
 =========
 
+## ABOUT THIS PROJECT 
+A virtual resource wall for parents to do creative things with their children during the quarantine!
+
+
+![1](https://github.com/hannaohandrews/resource_wall/blob/master/documents/1.png?raw=true)
+![2](https://github.com/hannaohandrews/resource_wall/blob/master/wireframes/5_url_description.png?raw=true)
+
 ## Project Setup
 
 The following steps are only for _one_ of the group members to perform.
