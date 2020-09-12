@@ -1,13 +1,8 @@
-/node_modules
-/public/styles
+
 .DS_Store
-.env
-.ignore
 .editorconfig
 .env.example
-.eslintrc.json
-/Midterm ERD.png
-package-json
-/package-lock.json
-
-
+.eslintrc.json/
+Midterm ERD.png
+package-lock.json
+node_modules

@@ -1,0 +1,31 @@
+.navbar {
+  padding: 20px;
+  background-color: lightseagreen;
+  height: 120px;
+  position: fixed;
+  width: 100%;
+  font-family: 'Assistant';
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  height: 70px;
+  width: 200px;
+  margin: 1%;
+}
+
+.navbar button {
+  font-family: 'Assistant';
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.notloggedIn {
+  margin-right: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

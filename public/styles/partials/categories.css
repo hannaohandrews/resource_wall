@@ -1,0 +1,25 @@
+.page_divider {
+  display: flex;
+  flex-direction: row;
+}
+
+.categories {
+  background-color: #d3f1f1;
+  padding-right: 30px;
+  font-family: 'Assistant';
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 30px;
+  padding-top: 100px;
+}
+
+.categories button {
+  background-color: LightSeaGreen;
+  font-size: 15px;
+  color: white;
+  width: 150px;
+  margin: 10px;
+  font-weight: bold;
+}

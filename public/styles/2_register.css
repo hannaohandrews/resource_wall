@@ -1,0 +1,27 @@
+.reg-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg-form form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg-form form .form-group {
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: space-between;
+  padding: 20px;
+}
+
+.reg-form form .form-group label {
+  padding-right: 10px;
+}
+
+.reg-form form .form-group button {
+  background-color: lightseagreen;
+}

@@ -1,0 +1,59 @@
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Assistant';
+  font-size: 24px;
+  padding: 10px;
+  margin: 40px;
+}
+
+.buttons .login_button {
+  padding-right: 20px;
+}
+
+.welcome {
+  display: flex;
+  padding-top: 144px;
+  padding-left: 100px;
+  flex-direction: column;
+  color: #044347;
+}
+
+.welcome .message {
+  display: flex;
+  justify-content: center;
+}
+
+.category-list {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 50px;
+  margin-top: 3px;
+  align-content: center;
+  align-items: flex-start;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+}
+
+.category label {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  font-family: 'anton';
+  font-size: larger;
+  color: LightSeaGreen;
+}
+
+.category img {
+  max-height: 130px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
