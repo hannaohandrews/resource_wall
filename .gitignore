@@ -1,8 +1,9 @@
-
+.eslintrc.json
 .DS_Store
 .editorconfig
 .env.example
-.eslintrc.json/
+.env
+.ignore
 Midterm ERD.png
 package-lock.json
 node_modules
